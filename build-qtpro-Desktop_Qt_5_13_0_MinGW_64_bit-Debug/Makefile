@@ -211,6 +211,7 @@ Makefile: ../qtpro.pro ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/win32-g++
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/qt_config.prf \
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/toolchain.prf \
 		../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/default_pre.prf \
@@ -387,6 +388,7 @@ Makefile: ../qtpro.pro ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/win32-g++
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/qt_config.prf:
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/win32-g++/qmake.conf:
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/exclusive_builds.prf:
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/toolchain.prf:
 ../../../QtCreator/QT/5.13.0/mingw73_64/mkspecs/features/default_pre.prf:

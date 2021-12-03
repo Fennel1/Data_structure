@@ -53,7 +53,7 @@
     <property name="font">
      <font>
       <family>微软雅黑 Light</family>
-      <pointsize>13</pointsize>
+      <pointsize>16</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
