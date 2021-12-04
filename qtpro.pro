@@ -26,11 +26,13 @@ CONFIG += c++11
 
 SOURCES += \
         address.cpp \
+        addressbook.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         address.h \
+        addressbook.h \
         mainwindow.h
 
 FORMS += \

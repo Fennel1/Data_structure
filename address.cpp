@@ -14,9 +14,9 @@ AddressList::AddressList()
 */
 AddressBTree::AddressBTree()
 {
-    root_name = new Node_BT;
+    root_name = new Node_BST;
     root_name->lchild = root_name->rchild = nullptr;
-    root_phone = new Node_BT;
+    root_phone = new Node_BST;
     root_phone->lchild = root_phone->rchild = nullptr;
 }
 

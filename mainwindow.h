@@ -2,7 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
 #include <QtDebug>
+
+#include "address.h"
+#include "addressbook.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +24,8 @@ public slots:   //槽函数
     void Press_TextInfo();
     void Press_DiffHashfun();
     void Press_DiffConflict();
+
+    void Press_AdressBook(QListWidgetItem* item);
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
