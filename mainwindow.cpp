@@ -22,6 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
+    ui->PB_SortName->hide();
+    ui->PB_SortPhone->hide();
+    ui->PB_SortUp->hide();
+    ui->PB_SortDown->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -42,6 +46,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->List_AddressBook, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_AdressBook(QListWidgetItem*)));
 
+    connect(ui->PB_AddMember, SIGNAL(clicked()), this, SLOT(Press_AddMember()));
+    connect(ui->PB_DeleteMember, SIGNAL(clicked()), this, SLOT(Press_DeleteMember()));
+    connect(ui->PB_ChangeMember, SIGNAL(clicked()), this, SLOT(Press_ChangeMember()));
+    connect(ui->PB_SortName, SIGNAL(clicked()), this, SLOT(Press_SortName()));
+    connect(ui->PB_SortPhone, SIGNAL(clicked()), this, SLOT(Press_SortPhone()));
+    connect(ui->PB_SortUp, SIGNAL(clicked()), this, SLOT(Press_SortUp()));
+    connect(ui->PB_SortDown, SIGNAL(clicked()), this, SLOT(Press_SortDown()));
+
+    connect(ui->PB_CreateGroup, SIGNAL(clicked()), this, SLOT(Press_CreateGroup()));
+    connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
+
+    connect(ui->PB_QueryMember, SIGNAL(clicked()), this, SLOT(Press_QueryMember()));
+
+
 }
 
 void MainWindow::Press_AdressList()
@@ -61,6 +79,10 @@ void MainWindow::Press_AdressList()
     ui->PB_AddMember->show();
     ui->PB_DeleteMember->show();
     ui->PB_ChangeMember->show();
+    ui->PB_SortName->show();
+    ui->PB_SortPhone->show();
+    ui->PB_SortUp->show();
+    ui->PB_SortDown->show();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -87,6 +109,10 @@ void MainWindow::Press_Text()
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
+    ui->PB_SortName->hide();
+    ui->PB_SortPhone->hide();
+    ui->PB_SortUp->hide();
+    ui->PB_SortDown->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -102,6 +128,10 @@ void MainWindow::Press_AllAdress()
     ui->PB_AddMember->show();
     ui->PB_DeleteMember->show();
     ui->PB_ChangeMember->show();
+    ui->PB_SortName->show();
+    ui->PB_SortPhone->show();
+    ui->PB_SortUp->show();
+    ui->PB_SortDown->show();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -117,6 +147,10 @@ void MainWindow::Press_GroupAdress()
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
+    ui->PB_SortName->hide();
+    ui->PB_SortPhone->hide();
+    ui->PB_SortUp->hide();
+    ui->PB_SortDown->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->show();
@@ -132,6 +166,10 @@ void MainWindow::Press_QueryAdress()
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
+    ui->PB_SortName->hide();
+    ui->PB_SortPhone->hide();
+    ui->PB_SortUp->hide();
+    ui->PB_SortDown->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -152,6 +190,56 @@ void MainWindow::Press_DiffHashfun()
 }
 
 void MainWindow::Press_DiffConflict()
+{
+
+}
+
+void MainWindow::Press_AddMember()
+{
+
+}
+
+void MainWindow::Press_DeleteMember()
+{
+
+}
+
+void MainWindow::Press_ChangeMember()
+{
+
+}
+
+void MainWindow::Press_CreateGroup()
+{
+
+}
+
+void MainWindow::Press_ManageGroup()
+{
+
+}
+
+void MainWindow::Press_QueryMember()
+{
+
+}
+
+void MainWindow::Press_SortName()
+{
+
+}
+
+void MainWindow::Press_SortPhone()
+{
+
+}
+
+void MainWindow::Press_SortUp()
+{
+
+}
+
+void MainWindow::Press_SortDown()
 {
 
 }

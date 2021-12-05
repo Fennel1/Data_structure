@@ -421,6 +421,82 @@
      <string>查询</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="PB_SortName">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>780</y>
+      <width>280</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>按姓名排序</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_SortPhone">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>910</y>
+      <width>280</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>按手机号排序</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_SortUp">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>1040</y>
+      <width>280</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>升序</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_SortDown">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>1170</y>
+      <width>280</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>降序</string>
+    </property>
+   </widget>
    <zorder>PB_AddressList</zorder>
    <zorder>PB_Text</zorder>
    <zorder>PB_AllAdress</zorder>
@@ -438,6 +514,10 @@
    <zorder>PB_ManageGroup</zorder>
    <zorder>PB_CreateGroup</zorder>
    <zorder>PB_QueryMember</zorder>
+   <zorder>PB_SortName</zorder>
+   <zorder>PB_SortPhone</zorder>
+   <zorder>PB_SortUp</zorder>
+   <zorder>PB_SortDown</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

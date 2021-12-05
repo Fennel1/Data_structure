@@ -41,6 +41,10 @@ public:
     QPushButton *PB_ManageGroup;
     QPushButton *PB_CreateGroup;
     QPushButton *PB_QueryMember;
+    QPushButton *PB_SortName;
+    QPushButton *PB_SortPhone;
+    QPushButton *PB_SortUp;
+    QPushButton *PB_SortDown;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -152,6 +156,22 @@ public:
         PB_QueryMember->setObjectName(QString::fromUtf8("PB_QueryMember"));
         PB_QueryMember->setGeometry(QRect(1970, 690, 181, 71));
         PB_QueryMember->setFont(font4);
+        PB_SortName = new QPushButton(centralWidget);
+        PB_SortName->setObjectName(QString::fromUtf8("PB_SortName"));
+        PB_SortName->setGeometry(QRect(1090, 780, 280, 120));
+        PB_SortName->setFont(font4);
+        PB_SortPhone = new QPushButton(centralWidget);
+        PB_SortPhone->setObjectName(QString::fromUtf8("PB_SortPhone"));
+        PB_SortPhone->setGeometry(QRect(1090, 910, 280, 120));
+        PB_SortPhone->setFont(font4);
+        PB_SortUp = new QPushButton(centralWidget);
+        PB_SortUp->setObjectName(QString::fromUtf8("PB_SortUp"));
+        PB_SortUp->setGeometry(QRect(1090, 1040, 280, 120));
+        PB_SortUp->setFont(font4);
+        PB_SortDown = new QPushButton(centralWidget);
+        PB_SortDown->setObjectName(QString::fromUtf8("PB_SortDown"));
+        PB_SortDown->setGeometry(QRect(1090, 1170, 280, 120));
+        PB_SortDown->setFont(font4);
         MainWindow->setCentralWidget(centralWidget);
         PB_AddressList->raise();
         PB_Text->raise();
@@ -170,6 +190,10 @@ public:
         PB_ManageGroup->raise();
         PB_CreateGroup->raise();
         PB_QueryMember->raise();
+        PB_SortName->raise();
+        PB_SortPhone->raise();
+        PB_SortUp->raise();
+        PB_SortDown->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -212,6 +236,10 @@ public:
         PB_ManageGroup->setText(QCoreApplication::translate("MainWindow", "\347\256\241\347\220\206\345\210\206\347\273\204", nullptr));
         PB_CreateGroup->setText(QCoreApplication::translate("MainWindow", "\346\226\260\345\273\272\345\210\206\347\273\204", nullptr));
         PB_QueryMember->setText(QCoreApplication::translate("MainWindow", "\346\237\245\350\257\242", nullptr));
+        PB_SortName->setText(QCoreApplication::translate("MainWindow", "\346\214\211\345\247\223\345\220\215\346\216\222\345\272\217", nullptr));
+        PB_SortPhone->setText(QCoreApplication::translate("MainWindow", "\346\214\211\346\211\213\346\234\272\345\217\267\346\216\222\345\272\217", nullptr));
+        PB_SortUp->setText(QCoreApplication::translate("MainWindow", "\345\215\207\345\272\217", nullptr));
+        PB_SortDown->setText(QCoreApplication::translate("MainWindow", "\351\231\215\345\272\217", nullptr));
     } // retranslateUi
 
 };
