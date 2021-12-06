@@ -45,6 +45,7 @@ public:
     QPushButton *PB_SortPhone;
     QPushButton *PB_SortUp;
     QPushButton *PB_SortDown;
+    QPushButton *PB_OpenAdressBook;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -172,6 +173,10 @@ public:
         PB_SortDown->setObjectName(QString::fromUtf8("PB_SortDown"));
         PB_SortDown->setGeometry(QRect(1090, 1170, 280, 120));
         PB_SortDown->setFont(font4);
+        PB_OpenAdressBook = new QPushButton(centralWidget);
+        PB_OpenAdressBook->setObjectName(QString::fromUtf8("PB_OpenAdressBook"));
+        PB_OpenAdressBook->setGeometry(QRect(1780, 780, 181, 71));
+        PB_OpenAdressBook->setFont(font4);
         MainWindow->setCentralWidget(centralWidget);
         PB_AddressList->raise();
         PB_Text->raise();
@@ -194,6 +199,7 @@ public:
         PB_SortPhone->raise();
         PB_SortUp->raise();
         PB_SortDown->raise();
+        PB_OpenAdressBook->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -240,6 +246,7 @@ public:
         PB_SortPhone->setText(QCoreApplication::translate("MainWindow", "\346\214\211\346\211\213\346\234\272\345\217\267\346\216\222\345\272\217", nullptr));
         PB_SortUp->setText(QCoreApplication::translate("MainWindow", "\345\215\207\345\272\217", nullptr));
         PB_SortDown->setText(QCoreApplication::translate("MainWindow", "\351\231\215\345\272\217", nullptr));
+        PB_OpenAdressBook->setText(QCoreApplication::translate("MainWindow", "\346\211\223\345\274\200", nullptr));
     } // retranslateUi
 
 };

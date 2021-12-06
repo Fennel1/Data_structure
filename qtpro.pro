@@ -28,15 +28,18 @@ SOURCES += \
         address.cpp \
         addressbook.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        openadress.cpp
 
 HEADERS += \
         address.h \
         addressbook.h \
-        mainwindow.h
+        mainwindow.h \
+        openadress.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        openadress.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

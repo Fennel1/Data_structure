@@ -7,6 +7,7 @@
 
 #include "address.h"
 #include "addressbook.h"
+#include "openadress.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,7 @@ public slots:   //槽函数
     void Press_DiffHashfun();
     void Press_DiffConflict();
 
+    void Press_OpenAddressBook();
     void Press_AddMember();
     void Press_DeleteMember();
     void Press_ChangeMember();
@@ -46,6 +48,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    OpenAdress *openad;
 };
 
 #endif // MAINWINDOW_H

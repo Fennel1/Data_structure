@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_openadress.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow), openad(new OpenAdress)
 {
     ui->setupUi(this);
 
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PB_DiffConflict->hide();
 
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->hide();
     ui->List_AddressBook->hide();
     ui->Text_MemberInfo->hide();
     ui->Text_OverallInfo->hide();
@@ -46,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->List_AddressBook, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_AdressBook(QListWidgetItem*)));
 
+    connect(ui->PB_OpenAdressBook, SIGNAL(clicked()), this, SLOT(Press_OpenAddressBook()));
     connect(ui->PB_AddMember, SIGNAL(clicked()), this, SLOT(Press_AddMember()));
     connect(ui->PB_DeleteMember, SIGNAL(clicked()), this, SLOT(Press_DeleteMember()));
     connect(ui->PB_ChangeMember, SIGNAL(clicked()), this, SLOT(Press_ChangeMember()));
@@ -58,8 +61,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
 
     connect(ui->PB_QueryMember, SIGNAL(clicked()), this, SLOT(Press_QueryMember()));
-
-
 }
 
 void MainWindow::Press_AdressList()
@@ -73,6 +74,7 @@ void MainWindow::Press_AdressList()
     ui->PB_DiffConflict->hide();
 
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->show();
     ui->List_AddressBook->show();
     ui->Text_MemberInfo->show();
     ui->Text_OverallInfo->show();
@@ -103,6 +105,7 @@ void MainWindow::Press_Text()
     ui->PB_QueryAdress->hide();
 
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->hide();
     ui->List_AddressBook->hide();
     ui->Text_MemberInfo->hide();
     ui->Text_OverallInfo->hide();
@@ -125,6 +128,7 @@ void MainWindow::Press_Text()
 void MainWindow::Press_AllAdress()
 {
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->show();
     ui->PB_AddMember->show();
     ui->PB_DeleteMember->show();
     ui->PB_ChangeMember->show();
@@ -144,6 +148,7 @@ void MainWindow::Press_AllAdress()
 void MainWindow::Press_GroupAdress()
 {
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->hide();
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
@@ -163,6 +168,7 @@ void MainWindow::Press_GroupAdress()
 void MainWindow::Press_QueryAdress()
 {
     //通讯录-全部-控件
+    ui->PB_OpenAdressBook->hide();
     ui->PB_AddMember->hide();
     ui->PB_DeleteMember->hide();
     ui->PB_ChangeMember->hide();
@@ -192,6 +198,11 @@ void MainWindow::Press_DiffHashfun()
 void MainWindow::Press_DiffConflict()
 {
 
+}
+
+void MainWindow::Press_OpenAddressBook()
+{
+    openad->show();
 }
 
 void MainWindow::Press_AddMember()

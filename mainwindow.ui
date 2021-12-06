@@ -497,6 +497,25 @@
      <string>降序</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="PB_OpenAdressBook">
+    <property name="geometry">
+     <rect>
+      <x>1780</x>
+      <y>780</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>打开</string>
+    </property>
+   </widget>
    <zorder>PB_AddressList</zorder>
    <zorder>PB_Text</zorder>
    <zorder>PB_AllAdress</zorder>
@@ -518,6 +537,7 @@
    <zorder>PB_SortPhone</zorder>
    <zorder>PB_SortUp</zorder>
    <zorder>PB_SortDown</zorder>
+   <zorder>PB_OpenAdressBook</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
