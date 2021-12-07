@@ -24,15 +24,20 @@ void AddressList::init(QString filename)
     QTextStream txt(&file);
     QString line=txt.readLine();
     QStringList strlist=line.split(",");
-    qDebug() << strlist << endl;
-
-    BookName = strlist[0];
-    len = strlist[1].toInt();
-    qDebug() << BookName << len << endl;
 
     head = new Node_L;
     Node_L *p=head;
     head->next = nullptr;
+
+    if (strlist.size() < 3) return;
+    BookName = strlist[0];
+    len = strlist[1].toInt();
+    groupNum = strlist[2].toInt();
+    qDebug() << strlist<< endl;
+
+    line=txt.readLine();
+    group = line.split(",");
+    qDebug() << group << endl;
 
     for (int i=0; i<len; i++)
     {
@@ -44,6 +49,7 @@ void AddressList::init(QString filename)
         temp->data.email = strlist[2];
         temp->data.address = strlist[3];
         temp->data.remark = strlist[4];
+        temp->data.groupIndex = strlist[5].toInt();
 
         p->next = temp;
         p = p->next;
@@ -61,6 +67,22 @@ Node_L * AddressList::getHead()
 int AddressList::getLen()
 {
     return len;
+}
+
+int AddressList::getGroupNum()
+{
+    return groupNum;
+}
+
+bool AddressList::addGroup(QString groupName)
+{
+    for (int i=0; i<groupNum; i++){
+        if (group[i] == groupName)  return false;
+    }
+
+    groupNum++;
+    group.append(groupName);
+    return true;
 }
 
 /*

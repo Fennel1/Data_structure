@@ -49,6 +49,8 @@ public:
     QPushButton *PB_OpenAdressBook;
     QLineEdit *Input_QueryMember;
     QPushButton *PB_QueryInfo;
+    QLineEdit *Input_CreateGroup;
+    QListWidget *List_MemberInGroup;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -183,6 +185,13 @@ public:
         PB_QueryInfo->setObjectName(QString::fromUtf8("PB_QueryInfo"));
         PB_QueryInfo->setGeometry(QRect(1870, 780, 280, 120));
         PB_QueryInfo->setFont(font4);
+        Input_CreateGroup = new QLineEdit(centralWidget);
+        Input_CreateGroup->setObjectName(QString::fromUtf8("Input_CreateGroup"));
+        Input_CreateGroup->setGeometry(QRect(1090, 780, 871, 71));
+        List_MemberInGroup = new QListWidget(centralWidget);
+        List_MemberInGroup->setObjectName(QString::fromUtf8("List_MemberInGroup"));
+        List_MemberInGroup->setGeometry(QRect(1080, 859, 1080, 491));
+        List_MemberInGroup->setFont(font2);
         MainWindow->setCentralWidget(centralWidget);
         PB_AddressList->raise();
         PB_Text->raise();
@@ -208,6 +217,8 @@ public:
         PB_OpenAdressBook->raise();
         Input_QueryMember->raise();
         PB_QueryInfo->raise();
+        Input_CreateGroup->raise();
+        List_MemberInGroup->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);

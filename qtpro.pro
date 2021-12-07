@@ -26,14 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         address.cpp \
-        addressbook.cpp \
+        hashmap.cpp \
         main.cpp \
         mainwindow.cpp \
         openadress.cpp
 
 HEADERS += \
         address.h \
-        addressbook.h \
+        hashmap.h \
         mainwindow.h \
         openadress.h
 

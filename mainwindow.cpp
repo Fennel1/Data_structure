@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->Text_MemberInfo->setReadOnly(true);
     ui->Text_OverallInfo->setReadOnly(true);
 
-
     //界面默认按钮
     ui->PB_AllAdress->hide();
     ui->PB_GroupAdress->hide();
@@ -37,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
     ui->PB_ManageGroup->hide();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -66,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->PB_CreateGroup, SIGNAL(clicked()), this, SLOT(Press_CreateGroup()));
     connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
+    connect(ui->Input_CreateGroup, SIGNAL(returnPressed()), this, SLOT(Input_CreateGroup()));
+    connect(ui->List_MemberInGroup, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_MemberInGroup(QListWidgetItem*)));
 
     connect(ui->PB_QueryMember, SIGNAL(clicked()), this, SLOT(Press_QueryMember()));
     connect(ui->Input_QueryMember, SIGNAL(returnPressed()), this, SLOT(Input_QueryMember()));
@@ -100,11 +103,15 @@ void MainWindow::Press_AdressList()
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
     ui->PB_ManageGroup->hide();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->hide();
+    ui->Text_OverallInfo->clear();
+    ui->Text_MemberInfo->clear();
 }
 
 void MainWindow::Press_Text()
@@ -133,11 +140,15 @@ void MainWindow::Press_Text()
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
     ui->PB_ManageGroup->hide();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->hide();
+    ui->Text_OverallInfo->clear();
+    ui->Text_MemberInfo->clear();
 }
 
 void MainWindow::Press_AllAdress()
@@ -155,11 +166,17 @@ void MainWindow::Press_AllAdress()
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
     ui->PB_ManageGroup->hide();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->hide();
+    ui->Text_OverallInfo->clear();
+    ui->Text_MemberInfo->clear();
+
+    Set_LinkList();
 }
 
 void MainWindow::Press_GroupAdress()
@@ -177,11 +194,22 @@ void MainWindow::Press_GroupAdress()
     //通讯录-分组-控件
     ui->PB_CreateGroup->show();
     ui->PB_ManageGroup->show();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->hide();
+    ui->Text_OverallInfo->clear();
+    ui->Text_MemberInfo->clear();
+
+    //设置列表
+    ui->List_AddressBook->clear();
+    for (int i=0; i<addresslinklist.getGroupNum(); i++){
+        QString str = addresslinklist.group[i];
+        ui->List_AddressBook->addItem(str);
+    }
 }
 
 void MainWindow::Press_QueryAdress()
@@ -199,12 +227,17 @@ void MainWindow::Press_QueryAdress()
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
     ui->PB_ManageGroup->hide();
+    ui->Input_CreateGroup->hide();
+    ui->List_MemberInGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->show();
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->show();
+    ui->Text_OverallInfo->clear();
+    ui->Text_MemberInfo->clear();
 
+    //创建平衡二叉树
     Node_L *p = addresslinklist.getHead();
     p = p->next;
 
@@ -214,6 +247,8 @@ void MainWindow::Press_QueryAdress()
         addressBTree.insert(addressBTree.getEmailRoot(), p->data, phonetaller, 2);
         p = p->next;
     }
+
+    Set_LinkList();
 }
 
 void MainWindow::Press_TextInfo()
@@ -249,20 +284,42 @@ void MainWindow::Press_DeleteMember()
 
 void MainWindow::Press_ChangeMember()
 {
+
 }
 
 void MainWindow::Press_CreateGroup()
 {
+    ui->Input_CreateGroup->clear();
+    ui->Input_CreateGroup->show();
+    ui->Input_CreateGroup->setPlaceholderText("请在此处输入新分组的名称：");
+    ui->List_MemberInGroup->hide();
+}
 
+void MainWindow::Input_CreateGroup()
+{
+    ui->Input_CreateGroup->hide();
+    ui->Text_OverallInfo->clear();
+
+    addresslinklist.addGroup(ui->Input_CreateGroup->text());
 }
 
 void MainWindow::Press_ManageGroup()
 {
+    ui->List_MemberInGroup->show();
+    ui->Input_CreateGroup->hide();
 
+    ui->Text_OverallInfo->clear();
+    ui->Text_OverallInfo->append("该分组内成员：");
+}
+
+void MainWindow::Press_MemberInGroup(QListWidgetItem* item)
+{
+    qDebug() << item->text() << endl;
 }
 
 void MainWindow::Press_QueryMember()
 {
+    //设置查询输入框
     ui->Input_QueryMember->clear();
     ui->Input_QueryMember->show();
     ui->Input_QueryMember->setPlaceholderText("请在输入查询内容：（按姓名查找1-；按邮箱查找2-）");
@@ -270,6 +327,7 @@ void MainWindow::Press_QueryMember()
 
 void MainWindow::Input_QueryMember()
 {
+    //查找输入内容
     ui->Text_MemberInfo->clear();
     ui->Input_QueryMember->hide();
 
@@ -290,11 +348,13 @@ void MainWindow::Input_QueryMember()
         ui->Text_MemberInfo->append("电子邮箱：" + p->data.email);
         ui->Text_MemberInfo->append("地址：" + p->data.address);
         ui->Text_MemberInfo->append("备注：" + p->data.remark);
+        ui->Text_MemberInfo->append("分组：" + addresslinklist.group[p->data.groupIndex]);
     }
 }
 
 void MainWindow::Press_QueryInfo()
 {
+    //计算查找信息
     double sum_name=0, sum_email=0;
 
     Node_L *p=addresslinklist.getHead();
@@ -311,9 +371,10 @@ void MainWindow::Press_QueryInfo()
     }
 
     ui->Text_OverallInfo->clear();
+    ui->Text_OverallInfo->append("\n用户数：" + QString::number(addresslinklist.getLen()) + "条");
     ui->Text_OverallInfo->append("ASL（平均查找次数）：");
-    ui->Text_OverallInfo->append("按姓名查找：" + QString::number(sum_name/addresslinklist.getLen())+ "次");
-    ui->Text_OverallInfo->append("按邮箱查找：" + QString::number(sum_email/addresslinklist.getLen())+ "次");
+    ui->Text_OverallInfo->append("\n\t\t\t按姓名查找：" + QString::number(sum_name/addresslinklist.getLen()) + "次");
+    ui->Text_OverallInfo->append("\n\t\t\t按邮箱查找：" + QString::number(sum_email/addresslinklist.getLen()) + "次");
 
     qDebug() << sum_name << sum_email << endl;
 }
@@ -344,18 +405,27 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
 
     qDebug() << item->text() << endl;
     QStringList strlist=item->text().split("\t");
-    QString str=strlist[1];
+    if (item->text().contains('@')){    //处理全部界面
+        QString str=strlist[1];
 
-    Node_L *p=addresslinklist.getHead();
-    p = p->next;
-    while (p && p->data.email!=str) p=p->next;
+        Node_L *p=addresslinklist.getHead();
+        p = p->next;
+        while (p && p->data.email!=str) p=p->next;
 
-    ui->Text_MemberInfo->append("名字：" + p->data.name);
-    ui->Text_MemberInfo->append("电话号码：" + p->data.phone);
-    ui->Text_MemberInfo->append("电子邮箱：" + p->data.email);
-    ui->Text_MemberInfo->append("地址：" + p->data.address);
-    ui->Text_MemberInfo->append("备注：" + p->data.remark);
+        ui->Text_MemberInfo->append("姓名：" + p->data.name);
+        ui->Text_MemberInfo->append("电话号码：" + p->data.phone);
+        ui->Text_MemberInfo->append("电子邮箱：" + p->data.email);
+        ui->Text_MemberInfo->append("地址：" + p->data.address);
+        ui->Text_MemberInfo->append("备注：" + p->data.remark);
+        ui->Text_MemberInfo->append("分组：" + addresslinklist.group[p->data.groupIndex]);
+    }
+    else if (strlist.size() > 1){       //处理分组界面-用户部分
 
+    }
+    else {      //处理分组界面-分组部分
+        QString groupname=strlist[0];
+        ui->Text_MemberInfo->append("分组名称：" + groupname);
+    }
 }
 
 void MainWindow::Press_AdressFilename(QListWidgetItem* item)
@@ -375,8 +445,6 @@ void MainWindow::Set_LinkList()
 
     Node_L *p=addresslinklist.getHead();
     p = p->next;
-
-    qDebug() << p->data.email << endl;
 
     while (p)
     {

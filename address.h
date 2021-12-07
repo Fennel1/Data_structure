@@ -11,6 +11,7 @@ typedef struct{     //数据
     QString email;
     QString address;
     QString remark;
+    int groupIndex;
 }Data;
 
 typedef struct node_L{  //链表节点
@@ -37,10 +38,16 @@ public:
 
     Node_L * getHead();
     int getLen();
+    int getGroupNum();
+
+    bool addGroup(QString groupName);
+
+    QStringList group;
 
 private:
     List head;
     int len;
+    int groupNum;
     QString BookName;
 };
 

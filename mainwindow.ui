@@ -525,6 +525,32 @@
      <string>统计查询效率</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="Input_CreateGroup">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>780</y>
+      <width>871</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_MemberInGroup">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>859</y>
+      <width>1080</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
    <zorder>PB_AddressList</zorder>
    <zorder>PB_Text</zorder>
    <zorder>PB_AllAdress</zorder>
@@ -549,6 +575,8 @@
    <zorder>PB_OpenAdressBook</zorder>
    <zorder>Input_QueryMember</zorder>
    <zorder>PB_QueryInfo</zorder>
+   <zorder>Input_CreateGroup</zorder>
+   <zorder>List_MemberInGroup</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

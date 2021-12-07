@@ -7,7 +7,6 @@
 #include <QDir>
 
 #include "address.h"
-#include "addressbook.h"
 #include "openadress.h"
 
 namespace Ui {
@@ -38,6 +37,8 @@ public slots:   //槽函数
 
     void Press_CreateGroup();
     void Press_ManageGroup();
+    void Input_CreateGroup();
+    void Press_MemberInGroup(QListWidgetItem* item);
 
     void Press_QueryMember();
     void Input_QueryMember();
@@ -59,7 +60,9 @@ private:
     Ui::MainWindow *ui;
     OpenAdress *openad;
 
+    //数据链表
     AddressList addresslinklist;
+    //数据二叉树
     AddressBTree addressBTree;
 };
 
