@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <QtDebug>
+#include <QDir>
 
 #include "address.h"
 #include "addressbook.h"
@@ -39,16 +40,27 @@ public slots:   //槽函数
     void Press_ManageGroup();
 
     void Press_QueryMember();
+    void Input_QueryMember();
+    void Press_QueryInfo();
 
     void Press_AdressBook(QListWidgetItem* item);
 
+    void Press_AdressFilename(QListWidgetItem* item);
+
 public:
+
+    friend class OpenAdress;
     explicit MainWindow(QWidget *parent = nullptr);
+
+    void Set_LinkList();
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     OpenAdress *openad;
+
+    AddressList addresslinklist;
+    AddressBTree addressBTree;
 };
 
 #endif // MAINWINDOW_H

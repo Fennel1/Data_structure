@@ -254,26 +254,6 @@
       <pointsize>12</pointsize>
      </font>
     </property>
-    <item>
-     <property name="text">
-      <string>    456456456</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>123</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>456</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>789</string>
-     </property>
-    </item>
    </widget>
    <widget class="QTextEdit" name="Text_MemberInfo">
     <property name="geometry">
@@ -516,6 +496,35 @@
      <string>打开</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="Input_QueryMember">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>690</y>
+      <width>871</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_QueryInfo">
+    <property name="geometry">
+     <rect>
+      <x>1870</x>
+      <y>780</y>
+      <width>280</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>统计查询效率</string>
+    </property>
+   </widget>
    <zorder>PB_AddressList</zorder>
    <zorder>PB_Text</zorder>
    <zorder>PB_AllAdress</zorder>
@@ -538,6 +547,8 @@
    <zorder>PB_SortUp</zorder>
    <zorder>PB_SortDown</zorder>
    <zorder>PB_OpenAdressBook</zorder>
+   <zorder>Input_QueryMember</zorder>
+   <zorder>PB_QueryInfo</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

@@ -12,29 +12,28 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QListWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_OpenAdress
 {
 public:
-    QDialogButtonBox *buttonBox;
+    QListWidget *List_AddressList;
 
     void setupUi(QDialog *OpenAdress)
     {
         if (OpenAdress->objectName().isEmpty())
             OpenAdress->setObjectName(QString::fromUtf8("OpenAdress"));
-        OpenAdress->resize(400, 300);
-        buttonBox = new QDialogButtonBox(OpenAdress);
-        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(30, 240, 341, 32));
-        buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        OpenAdress->resize(800, 600);
+        List_AddressList = new QListWidget(OpenAdress);
+        List_AddressList->setObjectName(QString::fromUtf8("List_AddressList"));
+        List_AddressList->setGeometry(QRect(0, 0, 801, 601));
+        QFont font;
+        font.setPointSize(16);
+        List_AddressList->setFont(font);
 
         retranslateUi(OpenAdress);
-        QObject::connect(buttonBox, SIGNAL(accepted()), OpenAdress, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), OpenAdress, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(OpenAdress);
     } // setupUi

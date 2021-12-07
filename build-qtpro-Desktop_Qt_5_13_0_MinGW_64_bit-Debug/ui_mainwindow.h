@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -46,6 +47,8 @@ public:
     QPushButton *PB_SortUp;
     QPushButton *PB_SortDown;
     QPushButton *PB_OpenAdressBook;
+    QLineEdit *Input_QueryMember;
+    QPushButton *PB_QueryInfo;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -109,10 +112,6 @@ public:
         PB_DiffConflict->setFont(font1);
         PB_DiffConflict->setIconSize(QSize(16, 16));
         List_AddressBook = new QListWidget(centralWidget);
-        new QListWidgetItem(List_AddressBook);
-        new QListWidgetItem(List_AddressBook);
-        new QListWidgetItem(List_AddressBook);
-        new QListWidgetItem(List_AddressBook);
         List_AddressBook->setObjectName(QString::fromUtf8("List_AddressBook"));
         List_AddressBook->setGeometry(QRect(0, 190, 1080, 1160));
         QFont font2;
@@ -177,6 +176,13 @@ public:
         PB_OpenAdressBook->setObjectName(QString::fromUtf8("PB_OpenAdressBook"));
         PB_OpenAdressBook->setGeometry(QRect(1780, 780, 181, 71));
         PB_OpenAdressBook->setFont(font4);
+        Input_QueryMember = new QLineEdit(centralWidget);
+        Input_QueryMember->setObjectName(QString::fromUtf8("Input_QueryMember"));
+        Input_QueryMember->setGeometry(QRect(1090, 690, 871, 71));
+        PB_QueryInfo = new QPushButton(centralWidget);
+        PB_QueryInfo->setObjectName(QString::fromUtf8("PB_QueryInfo"));
+        PB_QueryInfo->setGeometry(QRect(1870, 780, 280, 120));
+        PB_QueryInfo->setFont(font4);
         MainWindow->setCentralWidget(centralWidget);
         PB_AddressList->raise();
         PB_Text->raise();
@@ -200,6 +206,8 @@ public:
         PB_SortUp->raise();
         PB_SortDown->raise();
         PB_OpenAdressBook->raise();
+        Input_QueryMember->raise();
+        PB_QueryInfo->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -223,19 +231,6 @@ public:
         PB_TextInfo->setText(QCoreApplication::translate("MainWindow", "\347\273\237\350\256\241", nullptr));
         PB_DiffHashfun->setText(QCoreApplication::translate("MainWindow", "\346\257\224\350\276\203\344\270\215\345\220\214\345\223\210\345\270\214\345\207\275\346\225\260", nullptr));
         PB_DiffConflict->setText(QCoreApplication::translate("MainWindow", "\346\257\224\350\276\203\344\270\215\345\220\214\345\244\204\347\220\206\345\206\262\347\252\201\346\226\271\346\263\225", nullptr));
-
-        const bool __sortingEnabled = List_AddressBook->isSortingEnabled();
-        List_AddressBook->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = List_AddressBook->item(0);
-        ___qlistwidgetitem->setText(QCoreApplication::translate("MainWindow", "    456456456", nullptr));
-        QListWidgetItem *___qlistwidgetitem1 = List_AddressBook->item(1);
-        ___qlistwidgetitem1->setText(QCoreApplication::translate("MainWindow", "123", nullptr));
-        QListWidgetItem *___qlistwidgetitem2 = List_AddressBook->item(2);
-        ___qlistwidgetitem2->setText(QCoreApplication::translate("MainWindow", "456", nullptr));
-        QListWidgetItem *___qlistwidgetitem3 = List_AddressBook->item(3);
-        ___qlistwidgetitem3->setText(QCoreApplication::translate("MainWindow", "789", nullptr));
-        List_AddressBook->setSortingEnabled(__sortingEnabled);
-
         PB_DeleteMember->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
         PB_AddMember->setText(QCoreApplication::translate("MainWindow", "\346\267\273\345\212\240", nullptr));
         PB_ChangeMember->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\224\271", nullptr));
@@ -247,6 +242,7 @@ public:
         PB_SortUp->setText(QCoreApplication::translate("MainWindow", "\345\215\207\345\272\217", nullptr));
         PB_SortDown->setText(QCoreApplication::translate("MainWindow", "\351\231\215\345\272\217", nullptr));
         PB_OpenAdressBook->setText(QCoreApplication::translate("MainWindow", "\346\211\223\345\274\200", nullptr));
+        PB_QueryInfo->setText(QCoreApplication::translate("MainWindow", "\347\273\237\350\256\241\346\237\245\350\257\242\346\225\210\347\216\207", nullptr));
     } // retranslateUi
 
 };
