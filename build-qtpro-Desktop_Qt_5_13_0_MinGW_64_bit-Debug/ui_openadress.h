@@ -28,7 +28,7 @@ public:
         OpenAdress->resize(800, 600);
         List_AddressList = new QListWidget(OpenAdress);
         List_AddressList->setObjectName(QString::fromUtf8("List_AddressList"));
-        List_AddressList->setGeometry(QRect(0, 0, 801, 601));
+        List_AddressList->setGeometry(QRect(0, 0, 800, 600));
         QFont font;
         font.setPointSize(16);
         List_AddressList->setFont(font);

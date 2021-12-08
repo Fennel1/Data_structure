@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[29];
-    char stringdata0[465];
+    QByteArrayData data[39];
+    char stringdata0[631];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -60,7 +60,17 @@ QT_MOC_LITERAL(24, 375, 17), // "Press_QueryMember"
 QT_MOC_LITERAL(25, 393, 17), // "Input_QueryMember"
 QT_MOC_LITERAL(26, 411, 15), // "Press_QueryInfo"
 QT_MOC_LITERAL(27, 427, 16), // "Press_AdressBook"
-QT_MOC_LITERAL(28, 444, 20) // "Press_AdressFilename"
+QT_MOC_LITERAL(28, 444, 20), // "Press_AdressFilename"
+QT_MOC_LITERAL(29, 465, 17), // "Press_OpenArtical"
+QT_MOC_LITERAL(30, 483, 21), // "Press_ArticalFileName"
+QT_MOC_LITERAL(31, 505, 16), // "Press_HashLinear"
+QT_MOC_LITERAL(32, 522, 13), // "Press_HashQsr"
+QT_MOC_LITERAL(33, 536, 16), // "Press_HashRandom"
+QT_MOC_LITERAL(34, 553, 14), // "Press_HashLink"
+QT_MOC_LITERAL(35, 568, 17), // "Press_HashNewRule"
+QT_MOC_LITERAL(36, 586, 13), // "Press_DiffSqr"
+QT_MOC_LITERAL(37, 600, 13), // "Press_DiffMod"
+QT_MOC_LITERAL(38, 614, 16) // "Press_DiffRandom"
 
     },
     "MainWindow\0Press_AdressList\0\0Press_Text\0"
@@ -75,7 +85,12 @@ QT_MOC_LITERAL(28, 444, 20) // "Press_AdressFilename"
     "Input_CreateGroup\0Press_MemberInGroup\0"
     "QListWidgetItem*\0item\0Press_QueryMember\0"
     "Input_QueryMember\0Press_QueryInfo\0"
-    "Press_AdressBook\0Press_AdressFilename"
+    "Press_AdressBook\0Press_AdressFilename\0"
+    "Press_OpenArtical\0Press_ArticalFileName\0"
+    "Press_HashLinear\0Press_HashQsr\0"
+    "Press_HashRandom\0Press_HashLink\0"
+    "Press_HashNewRule\0Press_DiffSqr\0"
+    "Press_DiffMod\0Press_DiffRandom"
 };
 #undef QT_MOC_LITERAL
 
@@ -85,7 +100,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      25,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -93,31 +108,41 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  139,    2, 0x0a /* Public */,
-       3,    0,  140,    2, 0x0a /* Public */,
-       4,    0,  141,    2, 0x0a /* Public */,
-       5,    0,  142,    2, 0x0a /* Public */,
-       6,    0,  143,    2, 0x0a /* Public */,
-       7,    0,  144,    2, 0x0a /* Public */,
-       8,    0,  145,    2, 0x0a /* Public */,
-       9,    0,  146,    2, 0x0a /* Public */,
-      10,    0,  147,    2, 0x0a /* Public */,
-      11,    0,  148,    2, 0x0a /* Public */,
-      12,    0,  149,    2, 0x0a /* Public */,
-      13,    0,  150,    2, 0x0a /* Public */,
-      14,    0,  151,    2, 0x0a /* Public */,
-      15,    0,  152,    2, 0x0a /* Public */,
-      16,    0,  153,    2, 0x0a /* Public */,
-      17,    0,  154,    2, 0x0a /* Public */,
-      18,    0,  155,    2, 0x0a /* Public */,
-      19,    0,  156,    2, 0x0a /* Public */,
-      20,    0,  157,    2, 0x0a /* Public */,
-      21,    1,  158,    2, 0x0a /* Public */,
-      24,    0,  161,    2, 0x0a /* Public */,
-      25,    0,  162,    2, 0x0a /* Public */,
-      26,    0,  163,    2, 0x0a /* Public */,
-      27,    1,  164,    2, 0x0a /* Public */,
-      28,    1,  167,    2, 0x0a /* Public */,
+       1,    0,  189,    2, 0x0a /* Public */,
+       3,    0,  190,    2, 0x0a /* Public */,
+       4,    0,  191,    2, 0x0a /* Public */,
+       5,    0,  192,    2, 0x0a /* Public */,
+       6,    0,  193,    2, 0x0a /* Public */,
+       7,    0,  194,    2, 0x0a /* Public */,
+       8,    0,  195,    2, 0x0a /* Public */,
+       9,    0,  196,    2, 0x0a /* Public */,
+      10,    0,  197,    2, 0x0a /* Public */,
+      11,    0,  198,    2, 0x0a /* Public */,
+      12,    0,  199,    2, 0x0a /* Public */,
+      13,    0,  200,    2, 0x0a /* Public */,
+      14,    0,  201,    2, 0x0a /* Public */,
+      15,    0,  202,    2, 0x0a /* Public */,
+      16,    0,  203,    2, 0x0a /* Public */,
+      17,    0,  204,    2, 0x0a /* Public */,
+      18,    0,  205,    2, 0x0a /* Public */,
+      19,    0,  206,    2, 0x0a /* Public */,
+      20,    0,  207,    2, 0x0a /* Public */,
+      21,    1,  208,    2, 0x0a /* Public */,
+      24,    0,  211,    2, 0x0a /* Public */,
+      25,    0,  212,    2, 0x0a /* Public */,
+      26,    0,  213,    2, 0x0a /* Public */,
+      27,    1,  214,    2, 0x0a /* Public */,
+      28,    1,  217,    2, 0x0a /* Public */,
+      29,    0,  220,    2, 0x0a /* Public */,
+      30,    1,  221,    2, 0x0a /* Public */,
+      31,    0,  224,    2, 0x0a /* Public */,
+      32,    0,  225,    2, 0x0a /* Public */,
+      33,    0,  226,    2, 0x0a /* Public */,
+      34,    0,  227,    2, 0x0a /* Public */,
+      35,    0,  228,    2, 0x0a /* Public */,
+      36,    0,  229,    2, 0x0a /* Public */,
+      37,    0,  230,    2, 0x0a /* Public */,
+      38,    0,  231,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -145,6 +170,16 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 22,   23,
     QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -180,6 +215,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 22: _t->Press_QueryInfo(); break;
         case 23: _t->Press_AdressBook((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 24: _t->Press_AdressFilename((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 25: _t->Press_OpenArtical(); break;
+        case 26: _t->Press_ArticalFileName((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 27: _t->Press_HashLinear(); break;
+        case 28: _t->Press_HashQsr(); break;
+        case 29: _t->Press_HashRandom(); break;
+        case 30: _t->Press_HashLink(); break;
+        case 31: _t->Press_HashNewRule(); break;
+        case 32: _t->Press_DiffSqr(); break;
+        case 33: _t->Press_DiffMod(); break;
+        case 34: _t->Press_DiffRandom(); break;
         default: ;
         }
     }
@@ -214,13 +259,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 25)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 35;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 25)
+        if (_id < 35)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 25;
+        _id -= 35;
     }
     return _id;
 }

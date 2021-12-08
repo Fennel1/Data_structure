@@ -14,6 +14,7 @@ typedef struct arraynode{
 }ArrayNode, *Array;
 
 typedef struct linknode{
+    int key;
     QString word;
     int num;
     linknode *next;
@@ -23,12 +24,25 @@ class HashMap
 {
 public:
     HashMap();
-private:
+
+    void clear_hashmap();
+
+    int getKey_Qsr(QString word);   //平方取中法
+    int getKey_Mod(QString word);   //除留余数法
+    int getKey_Random(QString word); //随机数法
+
+    void resetHashLink();
+    void resetHashArray();
+
+    int insert(QString word, int fun, int diff);
+
     map<QString, int> stlMap;
     Array myHashArray;
     vector<LinkNode *> myHashLink;
 
-    int size;
+private:
+    int SIZE;
+    int MULT;
     int len;
 
 };

@@ -551,6 +551,326 @@
      </font>
     </property>
    </widget>
+   <widget class="QTextEdit" name="Text_ArticleShow">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>1160</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="Text_ArticalInfo">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_WordInfo">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>770</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_OpenArtical">
+    <property name="geometry">
+     <rect>
+      <x>1970</x>
+      <y>690</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>打开</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_HashFun">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="Text_HashInfo">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_HashLinear">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>780</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>开放定值法-线性探测</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_HashQsr">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>910</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>开放定值法-平方探测</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_HashRandom">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>1040</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>开放定值法-随机探测</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_HashLink">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>1170</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>链地址法</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_HashNewRule">
+    <property name="geometry">
+     <rect>
+      <x>1680</x>
+      <y>780</y>
+      <width>470</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>设置哈希表规则</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_HashFunCompare">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>770</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_DiffSqr">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>780</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>平方取中法</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_DiffMod">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>910</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>去留余数法</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_DiffRandom">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>1040</y>
+      <width>450</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>随机数法</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_HashDiff">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="List_HashDiffCompare">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>770</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="Text_HashDiffInfo">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>190</y>
+      <width>1080</width>
+      <height>580</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <zorder>Input_CreateGroup</zorder>
+   <zorder>List_MemberInGroup</zorder>
+   <zorder>List_WordInfo</zorder>
+   <zorder>Text_HashInfo</zorder>
+   <zorder>Text_ArticalInfo</zorder>
    <zorder>PB_AddressList</zorder>
    <zorder>PB_Text</zorder>
    <zorder>PB_AllAdress</zorder>
@@ -575,8 +895,21 @@
    <zorder>PB_OpenAdressBook</zorder>
    <zorder>Input_QueryMember</zorder>
    <zorder>PB_QueryInfo</zorder>
-   <zorder>Input_CreateGroup</zorder>
-   <zorder>List_MemberInGroup</zorder>
+   <zorder>Text_ArticleShow</zorder>
+   <zorder>PB_OpenArtical</zorder>
+   <zorder>List_HashFun</zorder>
+   <zorder>PB_HashLinear</zorder>
+   <zorder>PB_HashQsr</zorder>
+   <zorder>PB_HashRandom</zorder>
+   <zorder>PB_HashLink</zorder>
+   <zorder>PB_HashNewRule</zorder>
+   <zorder>List_HashFunCompare</zorder>
+   <zorder>PB_DiffSqr</zorder>
+   <zorder>PB_DiffMod</zorder>
+   <zorder>PB_DiffRandom</zorder>
+   <zorder>List_HashDiff</zorder>
+   <zorder>List_HashDiffCompare</zorder>
+   <zorder>Text_HashDiffInfo</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

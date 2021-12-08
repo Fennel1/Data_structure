@@ -1,16 +1,23 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ui_openadress.h"
+#include "ui_openartical.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow), openad(new OpenAdress)
+    ui(new Ui::MainWindow), openad(new OpenAdress), openartical(new OpenArtical)
 {
     ui->setupUi(this);
+
+    type = basis = 0;
 
     //设置文本框仅读
     ui->Text_MemberInfo->setReadOnly(true);
     ui->Text_OverallInfo->setReadOnly(true);
+    ui->Text_ArticleShow->setReadOnly(true);
+    ui->Text_HashDiffInfo->setReadOnly(true);
+    ui->Text_HashInfo->setReadOnly(true);
+    ui->Text_ArticalInfo->setReadOnly(true);
 
     //界面默认按钮
     ui->PB_AllAdress->hide();
@@ -44,6 +51,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->Input_QueryMember->hide();
     ui->PB_QueryInfo->hide();
 
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->hide();
+    ui->Text_ArticalInfo->hide();
+    ui->List_WordInfo->hide();
+    ui->PB_OpenArtical->hide();
+
+    //哈希表-函数-控件
+    ui->PB_HashLinear->hide();
+    ui->PB_HashQsr->hide();
+    ui->PB_HashRandom->hide();
+    ui->PB_HashLink->hide();
+    ui->PB_HashNewRule->hide();
+    ui->List_HashFun->hide();
+    ui->Text_HashInfo->hide();
+    ui->List_HashFunCompare->hide();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->hide();
+    ui->PB_DiffMod->hide();
+    ui->PB_DiffRandom->hide();
+    ui->List_HashDiff->hide();
+    ui->List_HashDiffCompare->hide();
+    ui->Text_HashDiffInfo->hide();
+
     //按钮连接
     connect(ui->PB_AddressList, SIGNAL(clicked()), this, SLOT(Press_AdressList()));
     connect(ui->PB_Text, SIGNAL(clicked()), this, SLOT(Press_Text()));
@@ -75,8 +106,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_QueryInfo, SIGNAL(clicked()), this, SLOT(Press_QueryInfo()));
 
     connect(openad->ui->List_AddressList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_AdressFilename(QListWidgetItem*)));
-}
 
+    connect(ui->PB_OpenArtical, SIGNAL(clicked()), this, SLOT(Press_OpenArtical()));
+    connect(openartical->ui->List_Artical, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_ArticalFileName(QListWidgetItem*)));
+
+    connect(ui->PB_HashLinear, SIGNAL(clicked()), this, SLOT(Press_HashLinear()));
+    connect(ui->PB_HashQsr, SIGNAL(clicked()), this, SLOT(Press_HashQsr()));
+    connect(ui->PB_HashRandom, SIGNAL(clicked()), this, SLOT(Press_HashRandom()));
+    connect(ui->PB_HashLink, SIGNAL(clicked()), this, SLOT(Press_HashLink()));
+    connect(ui->PB_HashNewRule, SIGNAL(clicked()), this, SLOT(Press_HashNewRule()));
+
+    connect(ui->PB_DiffSqr, SIGNAL(clicked()), this, SLOT(Press_DiffSqr()));
+    connect(ui->PB_DiffMod, SIGNAL(clicked()), this, SLOT(Press_DiffMod()));
+    connect(ui->PB_DiffRandom, SIGNAL(clicked()), this, SLOT(Press_DiffRandom()));
+}
 void MainWindow::Press_AdressList()
 {
     //界面默认按钮
@@ -112,6 +155,30 @@ void MainWindow::Press_AdressList()
     ui->PB_QueryInfo->hide();
     ui->Text_OverallInfo->clear();
     ui->Text_MemberInfo->clear();
+
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->hide();
+    ui->Text_ArticalInfo->hide();
+    ui->List_WordInfo->hide();
+    ui->PB_OpenArtical->hide();
+
+    //哈希表-函数-控件
+    ui->PB_HashLinear->hide();
+    ui->PB_HashQsr->hide();
+    ui->PB_HashRandom->hide();
+    ui->PB_HashLink->hide();
+    ui->PB_HashNewRule->hide();
+    ui->List_HashFun->hide();
+    ui->Text_HashInfo->hide();
+    ui->List_HashFunCompare->hide();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->hide();
+    ui->PB_DiffMod->hide();
+    ui->PB_DiffRandom->hide();
+    ui->List_HashDiff->hide();
+    ui->List_HashDiffCompare->hide();
+    ui->Text_HashDiffInfo->hide();
 }
 
 void MainWindow::Press_Text()
@@ -149,6 +216,30 @@ void MainWindow::Press_Text()
     ui->PB_QueryInfo->hide();
     ui->Text_OverallInfo->clear();
     ui->Text_MemberInfo->clear();
+
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->show();
+    ui->Text_ArticalInfo->show();
+    ui->List_WordInfo->show();
+    ui->PB_OpenArtical->show();
+
+    //哈希表-函数-控件
+    ui->PB_HashLinear->hide();
+    ui->PB_HashQsr->hide();
+    ui->PB_HashRandom->hide();
+    ui->PB_HashLink->hide();
+    ui->PB_HashNewRule->hide();
+    ui->List_HashFun->hide();
+    ui->Text_HashInfo->hide();
+    ui->List_HashFunCompare->hide();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->hide();
+    ui->PB_DiffMod->hide();
+    ui->PB_DiffRandom->hide();
+    ui->List_HashDiff->hide();
+    ui->List_HashDiffCompare->hide();
+    ui->Text_HashDiffInfo->hide();
 }
 
 void MainWindow::Press_AllAdress()
@@ -253,17 +344,152 @@ void MainWindow::Press_QueryAdress()
 
 void MainWindow::Press_TextInfo()
 {
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->show();
+    ui->Text_ArticalInfo->show();
+    ui->List_WordInfo->show();
+    ui->PB_OpenArtical->show();
 
+    //哈希表-函数-控件
+    ui->PB_HashLinear->hide();
+    ui->PB_HashQsr->hide();
+    ui->PB_HashRandom->hide();
+    ui->PB_HashLink->hide();
+    ui->PB_HashNewRule->hide();
+    ui->List_HashFun->hide();
+    ui->Text_HashInfo->hide();
+    ui->List_HashFunCompare->hide();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->hide();
+    ui->PB_DiffMod->hide();
+    ui->PB_DiffRandom->hide();
+    ui->List_HashDiff->hide();
+    ui->List_HashDiffCompare->hide();
+    ui->Text_HashDiffInfo->hide();
 }
 
 void MainWindow::Press_DiffHashfun()
 {
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->hide();
+    ui->Text_ArticalInfo->hide();
+    ui->List_WordInfo->hide();
+    ui->PB_OpenArtical->hide();
 
+    //哈希表-函数-控件
+    ui->PB_HashLinear->show();
+    ui->PB_HashQsr->show();
+    ui->PB_HashRandom->show();
+    ui->PB_HashLink->show();
+    ui->PB_HashNewRule->show();
+    ui->List_HashFun->show();
+    ui->Text_HashInfo->show();
+    ui->List_HashFunCompare->show();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->hide();
+    ui->PB_DiffMod->hide();
+    ui->PB_DiffRandom->hide();
+    ui->List_HashDiff->hide();
+    ui->List_HashDiffCompare->hide();
+    ui->Text_HashDiffInfo->hide();
 }
 
 void MainWindow::Press_DiffConflict()
 {
+    //哈希表-统计-控件
+    ui->Text_ArticleShow->hide();
+    ui->Text_ArticalInfo->hide();
+    ui->List_WordInfo->hide();
+    ui->PB_OpenArtical->hide();
 
+    //哈希表-函数-控件
+    ui->PB_HashLinear->hide();
+    ui->PB_HashQsr->hide();
+    ui->PB_HashRandom->hide();
+    ui->PB_HashLink->hide();
+    ui->PB_HashNewRule->show();
+    ui->List_HashFun->hide();
+    ui->Text_HashInfo->hide();
+    ui->List_HashFunCompare->hide();
+
+    //哈希表-冲突-控件
+    ui->PB_DiffSqr->show();
+    ui->PB_DiffMod->show();
+    ui->PB_DiffRandom->show();
+    ui->List_HashDiff->show();
+    ui->List_HashDiffCompare->show();
+    ui->Text_HashDiffInfo->show();
+}
+
+void MainWindow::Press_OpenArtical()
+{
+    openartical->show();
+    openartical->set_List();
+}
+
+bool cmp(pair<QString, int> a, pair<QString, int> b)
+{
+    return a.second > b.second;
+}
+
+void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
+{
+    ui->Text_ArticleShow->clear();
+    ui->List_WordInfo->clear();
+    ui->Text_ArticalInfo->clear();
+    QFile file("D:\\GitHub\\qtpro\\text\\" + item->text() + ".txt");
+    if (file.exists())  qDebug() << "file exists" << endl;
+    else    qDebug() << "file not exists" << endl;
+
+    if (file.open(QIODevice::ReadOnly)) qDebug() << "file open" << endl;
+    else{
+        qDebug() << "file open fail" << endl;
+        return;
+    }
+
+    article.clear();
+
+    QTextStream txt(&file);
+    QString line=txt.readLine();
+    while(!line.isNull()){
+        ui->Text_ArticleShow->append(line);
+        line.replace(',', " ");
+        line.replace('.', " ");
+        line.replace(QRegExp("[\\s]+"), " ");
+        line = line.toLower();
+        line = line.trimmed();
+        article.append(line);
+        line=txt.readLine();
+    }
+
+    file.close();
+    hashMap.clear_hashmap();
+
+    for (int i=0; i<article.size(); i++){
+        QStringList words=article[i].split(" ");
+        for (int j=0; j<words.size(); j++){
+            hashMap.stlMap[words[j]]++;
+        }
+    }
+
+    int sum=0;
+    vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+    sort(numToWord.begin(), numToWord.end(), cmp);
+    for (int i=0; i<numToWord.size(); i++){
+        ui->List_WordInfo->addItem(numToWord[i].first + '\t' + QString::number(numToWord[i].second));
+        sum += numToWord[i].second;
+    }
+    ui->Text_ArticalInfo->append("文章名称：" + item->text());
+    ui->Text_ArticalInfo->append("文章段落数量：" + QString::number(article.size()) + "段");
+    ui->Text_ArticalInfo->append("文章单词数量：" + QString::number(sum) + "个");
+    ui->Text_ArticalInfo->append("文章不重复单词数量：" + QString::number(numToWord.size()) + "个");
+    ui->Text_ArticalInfo->append("\n高频词汇前三位：");
+    ui->Text_ArticalInfo->append("单词：" + numToWord[0].first + "\t\t" + "频数：" + QString::number(numToWord[0].second));
+    ui->Text_ArticalInfo->append("单词：" + numToWord[1].first + "\t\t" + "频数：" + QString::number(numToWord[1].second));
+    ui->Text_ArticalInfo->append("单词：" + numToWord[2].first + "\t\t" + "频数：" + QString::number(numToWord[2].second));
+    openartical->hide();
 }
 
 void MainWindow::Press_OpenAddressBook()
@@ -274,7 +500,8 @@ void MainWindow::Press_OpenAddressBook()
 
 void MainWindow::Press_AddMember()
 {
-
+    addresslinklist.Add();
+    Set_LinkList();
 }
 
 void MainWindow::Press_DeleteMember()
@@ -381,22 +608,30 @@ void MainWindow::Press_QueryInfo()
 
 void MainWindow::Press_SortName()
 {
-
+    type=1,basis=0;
+    addresslinklist.AddressList_sort(type,basis);
+    Set_LinkList();
 }
 
 void MainWindow::Press_SortPhone()
 {
-
+    type=1,basis=1;
+    addresslinklist.AddressList_sort(type,basis);
+    Set_LinkList();
 }
 
 void MainWindow::Press_SortUp()
 {
-
+    type=1;
+    addresslinklist.AddressList_sort(type,basis);
+    Set_LinkList();
 }
 
 void MainWindow::Press_SortDown()
 {
-
+    type=0;
+    addresslinklist.AddressList_sort(type,basis);
+    Set_LinkList();
 }
 
 void MainWindow::Press_AdressBook(QListWidgetItem* item)
@@ -452,6 +687,227 @@ void MainWindow::Set_LinkList()
         ui->List_AddressBook->addItem(thistext);
         p = p->next;
     }
+}
+
+void MainWindow::Press_HashLinear()
+{
+    ui->List_HashFun->clear();
+
+    int sum[3]={0};
+    double wordNum=0;
+
+    for (int k=0; k<3; k++){
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], k, 1);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashFun->addItem("平方取中法");
+        else if (k == 1) ui->List_HashFun->addItem("除留余数法");
+        else    ui->List_HashFun->addItem("随机数法");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << wordNum/3 << endl;
+
+    ui->List_HashFunCompare->clear();
+    ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
+    ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
+    ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+}
+
+void MainWindow::Press_HashQsr()
+{
+    ui->List_HashFun->clear();
+
+    int sum[3]={0};
+    double wordNum=0;
+
+    for (int k=0; k<3; k++){
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], k, 2);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashFun->addItem("平方取中法");
+        else if (k == 1) ui->List_HashFun->addItem("除留余数法");
+        else    ui->List_HashFun->addItem("随机数法");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << wordNum/3 << endl;
+
+    ui->List_HashFunCompare->clear();
+    ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
+    ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
+    ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+}
+
+void MainWindow::Press_HashRandom()
+{
+    ui->List_HashFun->clear();
+
+    int sum[3]={0};
+    double wordNum=0;
+
+    for (int k=0; k<3; k++){
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], k, 3);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashFun->addItem("平方取中法");
+        else if (k == 1) ui->List_HashFun->addItem("除留余数法");
+        else    ui->List_HashFun->addItem("随机数法");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << wordNum/3 << endl;
+
+    ui->List_HashFunCompare->clear();
+    ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
+    ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
+    ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+}
+
+void MainWindow::Press_HashLink()
+{
+    ui->List_HashFun->clear();
+
+    int sum[3]={0};
+    double wordNum=0;
+
+    for (int k=0; k<3; k++){
+        hashMap.resetHashLink();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], k, 0);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashFun->addItem("平方取中法");
+        else if (k == 1) ui->List_HashFun->addItem("除留余数法");
+        else    ui->List_HashFun->addItem("随机数法");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << wordNum/3 << endl;
+
+    ui->List_HashFunCompare->clear();
+    ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
+    ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
+    ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+}
+
+void MainWindow::Press_HashNewRule()
+{
+
+}
+
+void MainWindow::Press_DiffSqr()
+{
+    ui->List_HashDiff->clear();
+
+    int sum[4]={0};
+    double wordNum=0;
+
+    for (int k=0; k<4; k++){
+        hashMap.resetHashLink();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], 0, k);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashDiff->addItem("链地址法");
+        else if (k == 1) ui->List_HashDiff->addItem("开放定值法-线性探测");
+        else if (k == 2) ui->List_HashDiff->addItem("开放定值法-平方探测");
+        else    ui->List_HashDiff->addItem("开放定值法-随机探测");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << sum[3] << wordNum/4 << endl;
+
+    ui->List_HashDiffCompare->clear();
+    ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
+}
+
+void MainWindow::Press_DiffMod()
+{
+    ui->List_HashDiff->clear();
+
+    int sum[4]={0};
+    double wordNum=0;
+
+    for (int k=0; k<4; k++){
+        hashMap.resetHashLink();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], 1, k);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashDiff->addItem("链地址法");
+        else if (k == 1) ui->List_HashDiff->addItem("开放定值法-线性探测");
+        else if (k == 2) ui->List_HashDiff->addItem("开放定值法-平方探测");
+        else    ui->List_HashDiff->addItem("开放定值法-随机探测");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << sum[3] << wordNum/4 << endl;
+
+    ui->List_HashDiffCompare->clear();
+    ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
+}
+
+void MainWindow::Press_DiffRandom()
+{
+    ui->List_HashDiff->clear();
+
+    int sum[4]={0};
+    double wordNum=0;
+
+    for (int k=0; k<4; k++){
+        hashMap.resetHashLink();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                sum[k] += hashMap.insert(words[j], 2, k);
+                wordNum++;
+            }
+        }
+
+        if (k == 0) ui->List_HashDiff->addItem("链地址法");
+        else if (k == 1) ui->List_HashDiff->addItem("开放定值法-线性探测");
+        else if (k == 2) ui->List_HashDiff->addItem("开放定值法-平方探测");
+        else    ui->List_HashDiff->addItem("开放定值法-随机探测");
+    }
+
+    qDebug() << sum[0] << sum[1] << sum[2] << sum[3] << wordNum/4 << endl;
+
+    ui->List_HashDiffCompare->clear();
+    ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
 }
 
 MainWindow::~MainWindow()

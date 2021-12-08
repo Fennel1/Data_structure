@@ -30,11 +30,25 @@ class AddressList       //链表
 public:
     AddressList();
     //按需求排序
-    void sort(int type, int basis);
+    void AddressList_sort(int type, int basis);
     void init(QString filename);
     //添加删除节点
     void add_node(Data data);
     void delete_node(Data data);
+
+    //排序算法
+    Node_L* merge(Node_L *left, Node_L *right);
+    Node_L* merge_sort(Node_L *head);
+    Node_L* sortList(Node_L* head);
+
+    Node_L* merge_name(Node_L *left, Node_L *right);
+    Node_L* merge_sort_name(Node_L *head);
+    Node_L* sortList_name(Node_L* head);
+    //链表反转
+    Node_L* listReverse(Node_L *pHead);
+
+    //插入
+    void Add();
 
     Node_L * getHead();
     int getLen();

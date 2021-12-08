@@ -3,11 +3,15 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
+#include <algorithm>
+#include <vector>
 #include <QtDebug>
 #include <QDir>
 
 #include "address.h"
 #include "openadress.h"
+#include "openartical.h"
+#include "hashmap.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,12 +49,26 @@ public slots:   //槽函数
     void Press_QueryInfo();
 
     void Press_AdressBook(QListWidgetItem* item);
-
     void Press_AdressFilename(QListWidgetItem* item);
+
+    void Press_OpenArtical();
+    void Press_ArticalFileName(QListWidgetItem* item);
+
+    void Press_HashLinear();
+    void Press_HashQsr();
+    void Press_HashRandom();
+    void Press_HashLink();
+    void Press_HashNewRule();
+
+    void Press_DiffSqr();
+    void Press_DiffMod();
+    void Press_DiffRandom();
 
 public:
 
     friend class OpenAdress;
+    friend class OpenArtical;
+
     explicit MainWindow(QWidget *parent = nullptr);
 
     void Set_LinkList();
@@ -58,12 +76,20 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
     OpenAdress *openad;
+    OpenArtical *openartical;
 
     //数据链表
     AddressList addresslinklist;
     //数据二叉树
     AddressBTree addressBTree;
+
+    QStringList article;
+    HashMap hashMap;
+
+    int type;
+    int basis;
 };
 
 #endif // MAINWINDOW_H

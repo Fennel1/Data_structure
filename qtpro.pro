@@ -29,17 +29,20 @@ SOURCES += \
         hashmap.cpp \
         main.cpp \
         mainwindow.cpp \
-        openadress.cpp
+        openadress.cpp \
+        openartical.cpp
 
 HEADERS += \
         address.h \
         hashmap.h \
         mainwindow.h \
-        openadress.h
+        openadress.h \
+        openartical.h
 
 FORMS += \
         mainwindow.ui \
-        openadress.ui
+        openadress.ui \
+        openartical.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

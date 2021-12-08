@@ -7,6 +7,7 @@ AddressList::AddressList()
 {
     head = new Node_L;
     head->next = nullptr;
+    groupNum = 0;
 }
 
 void AddressList::init(QString filename)
@@ -83,6 +84,144 @@ bool AddressList::addGroup(QString groupName)
     groupNum++;
     group.append(groupName);
     return true;
+}
+
+void AddressList::AddressList_sort(int type, int basis)
+{
+    //手机号排序
+    if(basis==1)
+    {
+        head=sortList(head);
+        //升序
+        if(type==1)
+        {
+            return ;
+        }
+        //降序
+        else
+        {
+            head->next=listReverse(head->next);
+        }
+    }
+    //姓名排序
+    else
+    {
+        head=sortList_name(head);
+        //升序
+        if(type==1)
+        {
+            return ;
+        }
+        //降序
+        else
+        {
+            head->next=listReverse(head->next);
+            return ;
+        }
+    }
+}
+//手机号
+Node_L* AddressList::merge(Node_L *left, Node_L *right){
+    auto head = new Node_L;
+    auto h = head;
+    while(left && right){
+        if(left->data.phone < right->data.phone){
+            h->next = left;
+            left = left->next;
+        }else{
+            h->next = right;
+            right = right->next;
+        }
+        h = h->next;
+    }
+    h->next = left == NULL ? right : left;
+    return head->next;
+}
+Node_L* AddressList::merge_sort(Node_L *head){
+    if(!head->next) return head;
+    Node_L *slow = head, *fast = head->next;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    auto r_head = slow->next;//slow->next右边部分的头结点
+    slow->next = NULL;//左边切断开
+    auto left = merge_sort(head);
+    auto right = merge_sort(r_head);
+    return merge(left, right);
+}
+Node_L* AddressList::sortList(Node_L* head) {
+    if (!head || !head->next) return head;
+    return merge_sort(head);
+}
+//姓名
+Node_L* AddressList::merge_name(Node_L *left, Node_L *right){
+    auto head = new Node_L;
+    auto h = head;
+    while(left && right){
+        if(left->data.name < right->data.name){
+            h->next = left;
+            left = left->next;
+        }else{
+            h->next = right;
+            right = right->next;
+        }
+        h = h->next;
+    }
+    h->next = left == NULL ? right : left;
+    return head->next;
+}
+Node_L* AddressList::merge_sort_name(Node_L *head){
+    if(!head->next) return head;
+    Node_L *slow = head, *fast = head->next;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    auto r_head = slow->next;//slow->next右边部分的头结点
+    slow->next = NULL;//左边切断开
+    auto left = merge_sort_name(head);
+    auto right = merge_sort_name(r_head);
+    return merge_name(left, right);
+}
+Node_L* AddressList::sortList_name(Node_L* head) {
+    if (!head || !head->next) return head;
+    return merge_sort_name(head);
+}
+Node_L* AddressList::listReverse(Node_L* head) {
+       Node_L* prev = nullptr;
+       Node_L* curr = head;
+       while (curr) {
+           Node_L* next = curr->next;
+           curr->next = prev;
+           prev = curr;
+           curr = next;
+       }
+       return prev;
+   }
+
+void AddressList::Add()
+{
+    Node_L* nptr;
+    nptr=new Node_L;
+    nptr->data.name="unkonwn";
+    nptr->data.email="un@known.com";
+    nptr->data.phone="unknown";
+    nptr->data.remark="unknown";
+    nptr->data.address="unknown";
+    nptr->data.groupIndex=0;
+    nptr->next=nullptr;
+    if(head == nullptr)
+    {
+        head = nptr;
+    }
+    else
+    {
+        Node_L* pNode = head;
+        while(pNode->next != nullptr)
+            pNode = pNode->next;
+        pNode->next = nptr;
+    }
 }
 
 /*
