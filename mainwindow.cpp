@@ -822,7 +822,8 @@ void MainWindow::Press_DiffSqr()
     double wordNum=0;
 
     for (int k=0; k<4; k++){
-        hashMap.resetHashLink();
+        if (k==0)   hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
@@ -854,7 +855,8 @@ void MainWindow::Press_DiffMod()
     double wordNum=0;
 
     for (int k=0; k<4; k++){
-        hashMap.resetHashLink();
+        if (k==0)   hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
@@ -886,7 +888,8 @@ void MainWindow::Press_DiffRandom()
     double wordNum=0;
 
     for (int k=0; k<4; k++){
-        hashMap.resetHashLink();
+        if (k==0)   hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
