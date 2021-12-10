@@ -866,6 +866,16 @@
      </font>
     </property>
    </widget>
+   <widget class="QLineEdit" name="Input_setHashSIZE">
+    <property name="geometry">
+     <rect>
+      <x>1680</x>
+      <y>930</y>
+      <width>471</width>
+      <height>91</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>Input_CreateGroup</zorder>
    <zorder>List_MemberInGroup</zorder>
    <zorder>List_WordInfo</zorder>
@@ -910,6 +920,7 @@
    <zorder>List_HashDiff</zorder>
    <zorder>List_HashDiffCompare</zorder>
    <zorder>Text_HashDiffInfo</zorder>
+   <zorder>Input_setHashSIZE</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

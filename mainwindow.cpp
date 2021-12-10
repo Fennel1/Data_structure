@@ -74,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->List_HashDiff->hide();
     ui->List_HashDiffCompare->hide();
     ui->Text_HashDiffInfo->hide();
+    ui->Input_setHashSIZE->hide();
 
     //按钮连接
     connect(ui->PB_AddressList, SIGNAL(clicked()), this, SLOT(Press_AdressList()));
@@ -119,6 +120,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_DiffSqr, SIGNAL(clicked()), this, SLOT(Press_DiffSqr()));
     connect(ui->PB_DiffMod, SIGNAL(clicked()), this, SLOT(Press_DiffMod()));
     connect(ui->PB_DiffRandom, SIGNAL(clicked()), this, SLOT(Press_DiffRandom()));
+    connect(ui->Input_setHashSIZE, SIGNAL(returnPressed()), this, SLOT(Input_SetHashSIZE()));
 }
 void MainWindow::Press_AdressList()
 {
@@ -179,6 +181,7 @@ void MainWindow::Press_AdressList()
     ui->List_HashDiff->hide();
     ui->List_HashDiffCompare->hide();
     ui->Text_HashDiffInfo->hide();
+    ui->Input_setHashSIZE->hide();
 }
 
 void MainWindow::Press_Text()
@@ -240,6 +243,7 @@ void MainWindow::Press_Text()
     ui->List_HashDiff->hide();
     ui->List_HashDiffCompare->hide();
     ui->Text_HashDiffInfo->hide();
+    ui->Input_setHashSIZE->hide();
 }
 
 void MainWindow::Press_AllAdress()
@@ -367,6 +371,7 @@ void MainWindow::Press_TextInfo()
     ui->List_HashDiff->hide();
     ui->List_HashDiffCompare->hide();
     ui->Text_HashDiffInfo->hide();
+    ui->Input_setHashSIZE->hide();
 }
 
 void MainWindow::Press_DiffHashfun()
@@ -394,6 +399,7 @@ void MainWindow::Press_DiffHashfun()
     ui->List_HashDiff->hide();
     ui->List_HashDiffCompare->hide();
     ui->Text_HashDiffInfo->hide();
+    ui->Input_setHashSIZE->hide();
 }
 
 void MainWindow::Press_DiffConflict()
@@ -421,6 +427,7 @@ void MainWindow::Press_DiffConflict()
     ui->List_HashDiff->show();
     ui->List_HashDiffCompare->show();
     ui->Text_HashDiffInfo->show();
+    ui->Input_setHashSIZE->hide();
 }
 
 void MainWindow::Press_OpenArtical()
@@ -811,7 +818,21 @@ void MainWindow::Press_HashLink()
 
 void MainWindow::Press_HashNewRule()
 {
+    ui->Input_setHashSIZE->clear();
+    ui->Input_setHashSIZE->show();
+    ui->Input_setHashSIZE->setPlaceholderText("请在此处输入新SIZE值：(10000以内的素数)");
 
+}
+
+void MainWindow::Input_SetHashSIZE()
+{
+    int newSIZE = ui->Input_setHashSIZE->text().toInt();
+    ui->Input_setHashSIZE->hide();
+    if (newSIZE < 2 || newSIZE > 9973) return;
+    for (int i=2; i<newSIZE; i++){
+        if (newSIZE % i == 0)   return;
+    }
+    hashMap.setSIZE(newSIZE);
 }
 
 void MainWindow::Press_DiffSqr()

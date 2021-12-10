@@ -204,3 +204,32 @@ int HashMap::insert(QString word, int fun, int diff)
     }
     return cnt;
 }
+
+void HashMap::setSIZE(int newSIZE)
+{
+    delete []myHashArray;
+
+    resetHashLink();
+    while(!myHashLink.empty())  myHashLink.pop_back();
+
+    SIZE = newSIZE;
+
+    myHashArray = new ArrayNode[SIZE];
+    for (int i=0; i<SIZE; i++){
+        myHashArray[i].num = 0;
+        myHashArray[i].word = " ";
+    }
+
+    for (int i=0; i<SIZE; i++){
+        LinkNode *temp = new LinkNode;
+        temp->num = 0;
+        temp->key = i;
+        temp->next = nullptr;
+        myHashLink.push_back(temp);
+    }
+}
+
+void HashMap::setMULT(int newMULT)
+{
+    MULT = newMULT;
+}

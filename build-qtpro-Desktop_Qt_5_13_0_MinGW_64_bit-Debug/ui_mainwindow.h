@@ -69,6 +69,7 @@ public:
     QListWidget *List_HashDiff;
     QListWidget *List_HashDiffCompare;
     QTextEdit *Text_HashDiffInfo;
+    QLineEdit *Input_setHashSIZE;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -282,6 +283,9 @@ public:
         Text_HashDiffInfo->setObjectName(QString::fromUtf8("Text_HashDiffInfo"));
         Text_HashDiffInfo->setGeometry(QRect(1080, 190, 1080, 580));
         Text_HashDiffInfo->setFont(font3);
+        Input_setHashSIZE = new QLineEdit(centralWidget);
+        Input_setHashSIZE->setObjectName(QString::fromUtf8("Input_setHashSIZE"));
+        Input_setHashSIZE->setGeometry(QRect(1680, 930, 471, 91));
         MainWindow->setCentralWidget(centralWidget);
         Input_CreateGroup->raise();
         List_MemberInGroup->raise();
@@ -327,6 +331,7 @@ public:
         List_HashDiff->raise();
         List_HashDiffCompare->raise();
         Text_HashDiffInfo->raise();
+        Input_setHashSIZE->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);

@@ -63,6 +63,7 @@ public slots:   //槽函数
     void Press_DiffSqr();
     void Press_DiffMod();
     void Press_DiffRandom();
+    void Input_SetHashSIZE();
 
 public:
 
