@@ -7,12 +7,15 @@
 #include <vector>
 #include <QtDebug>
 #include <QDir>
+#include <QMessageBox>
 
 #include "address.h"
 #include "openadress.h"
 #include "openartical.h"
 #include "hashmap.h"
+#include "changeinfopage.h"
 
+static QString EMAIL;
 namespace Ui {
 class MainWindow;
 }
@@ -68,13 +71,16 @@ public slots:   //槽函数
     void Press_HashFunInfo(QListWidgetItem* item);
     void Press_HashDiffInfo(QListWidgetItem* item);
 
+    void on_pushButton_clicked();
+
 public:
 
     friend class OpenAdress;
     friend class OpenArtical;
+    friend class ChangeInfoPage;
 
     explicit MainWindow(QWidget *parent = nullptr);
-
+    bool PassEmail(QString email);
     void Set_LinkList();
     ~MainWindow();
 
@@ -83,6 +89,7 @@ private:
 
     OpenAdress *openad;
     OpenArtical *openartical;
+    ChangeInfoPage *changeinfopage;
 
     //数据链表
     AddressList addresslinklist;

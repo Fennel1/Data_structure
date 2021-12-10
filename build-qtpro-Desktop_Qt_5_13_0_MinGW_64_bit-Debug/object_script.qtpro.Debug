@@ -1,0 +1,11 @@
+debug/address.o
+debug/changeinfopage.o
+debug/hashmap.o
+debug/main.o
+debug/mainwindow.o
+debug/openadress.o
+debug/openartical.o
+debug/moc_changeinfopage.o
+debug/moc_mainwindow.o
+debug/moc_openadress.o
+debug/moc_openartical.o

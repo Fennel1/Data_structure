@@ -1,0 +1,11 @@
+release/address.o
+release/changeinfopage.o
+release/hashmap.o
+release/main.o
+release/mainwindow.o
+release/openadress.o
+release/openartical.o
+release/moc_changeinfopage.o
+release/moc_mainwindow.o
+release/moc_openadress.o
+release/moc_openartical.o

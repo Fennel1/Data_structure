@@ -2,10 +2,11 @@
 #include "ui_mainwindow.h"
 #include "ui_openadress.h"
 #include "ui_openartical.h"
+#include "ui_changeinfopage.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow), openad(new OpenAdress), openartical(new OpenArtical)
+    ui(new Ui::MainWindow), openad(new OpenAdress), openartical(new OpenArtical), changeinfopage(new ChangeInfoPage)
 {
     ui->setupUi(this);
 
@@ -125,6 +126,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->Input_setHashSIZE, SIGNAL(returnPressed()), this, SLOT(Input_SetHashSIZE()));
     connect(ui->List_HashFun, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_HashFunInfo(QListWidgetItem*)));
     connect(ui->List_HashDiff, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_HashDiffInfo(QListWidgetItem*)));
+
+    connect(changeinfopage->ui->pushButton,SIGNAL(clicked()),this,SLOT(on_pushButton_clicked()));
 }
 void MainWindow::Press_AdressList()
 {
@@ -528,7 +531,7 @@ void MainWindow::Press_DeleteMember()
 
 void MainWindow::Press_ChangeMember()
 {
-
+    changeinfopage->show();
 }
 
 void MainWindow::Press_CreateGroup()
@@ -672,14 +675,16 @@ void MainWindow::Press_QueryInfo()
 
 void MainWindow::Press_SortName()
 {
-    type=1,basis=0;
+    type=1;
+    basis=0;
     addresslinklist.AddressList_sort(type,basis);
     Set_LinkList();
 }
 
 void MainWindow::Press_SortPhone()
 {
-    type=1,basis=1;
+    type=1;
+    basis=1;
     addresslinklist.AddressList_sort(type,basis);
     Set_LinkList();
 }
@@ -1239,6 +1244,71 @@ void MainWindow::Press_HashDiffInfo(QListWidgetItem* item)
         else    ui->Text_HashDiffInfo->append("\nASL = NaN");
         ui->Text_HashDiffInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
     }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString str = changeinfopage->ui->lineEdit_name->text();
+    changeinfopage->Str_name=str;
+    str = changeinfopage->ui->lineEdit_phone->text();
+    changeinfopage->Str_phone=str;
+    str = changeinfopage->ui->lineEdit_address->text();
+    changeinfopage->Str_address=str;
+    str = changeinfopage->ui->lineEdit_remark->text();
+    changeinfopage->Str_remark=str;
+    str = changeinfopage->ui->lineEdit_email->text();
+    changeinfopage->Str_email=str;
+    bool passId=PassEmail(changeinfopage->ui->lineEdit_email->text());
+    Node_L *head;
+    head=addresslinklist.getHead();
+    QString email = ui->Text_MemberInfo->toPlainText();
+    qDebug() <<EMAIL<<endl;
+    qDebug()<<changeinfopage->Str_email<<endl;
+    if(passId== true)
+    {
+        while(head!=nullptr)
+        {
+            if(EMAIL==head->data.email)
+            {
+                head->data.name=changeinfopage->Str_name;
+                head->data.email=changeinfopage->Str_email;
+                head->data.phone=changeinfopage->Str_phone;
+                head->data.remark=changeinfopage->Str_remark;
+                head->data.address=changeinfopage->Str_address;
+
+                break;
+            }
+            head=head->next;
+
+        }
+        changeinfopage->hide();
+        Set_LinkList();
+    }
+    else
+    {
+         QMessageBox::critical(0 , "critical message" , "your email has been used!", QMessageBox::Ok | QMessageBox::Default , QMessageBox::Cancel | QMessageBox::Escape , 	0 );
+
+    }
+}
+
+bool MainWindow::PassEmail(QString email)
+{
+    Node_L *head;
+    head=addresslinklist.getHead();
+    head = head->next;
+    while(head!=nullptr)
+    {
+        if(email==head->data.email)
+        {
+            return  false;
+        }
+        else
+        {
+            head=head->next;
+        }
+    }
+    return true;
+
 }
 
 MainWindow::~MainWindow()

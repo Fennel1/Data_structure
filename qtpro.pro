@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         address.cpp \
+        changeinfopage.cpp \
         hashmap.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -34,12 +35,14 @@ SOURCES += \
 
 HEADERS += \
         address.h \
+        changeinfopage.h \
         hashmap.h \
         mainwindow.h \
         openadress.h \
         openartical.h
 
 FORMS += \
+        changeinfopage.ui \
         mainwindow.ui \
         openadress.ui \
         openartical.ui
