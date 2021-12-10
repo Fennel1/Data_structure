@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PB_ManageGroup->hide();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -101,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
     connect(ui->Input_CreateGroup, SIGNAL(returnPressed()), this, SLOT(Input_CreateGroup()));
     connect(ui->List_MemberInGroup, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_MemberInGroup(QListWidgetItem*)));
+    connect(ui->PB_ReturnGroup, SIGNAL(clicked()), this, SLOT(Press_ReturnGroup()));
 
     connect(ui->PB_QueryMember, SIGNAL(clicked()), this, SLOT(Press_QueryMember()));
     connect(ui->Input_QueryMember, SIGNAL(returnPressed()), this, SLOT(Input_QueryMember()));
@@ -121,6 +123,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_DiffMod, SIGNAL(clicked()), this, SLOT(Press_DiffMod()));
     connect(ui->PB_DiffRandom, SIGNAL(clicked()), this, SLOT(Press_DiffRandom()));
     connect(ui->Input_setHashSIZE, SIGNAL(returnPressed()), this, SLOT(Input_SetHashSIZE()));
+    connect(ui->List_HashFun, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_HashFunInfo(QListWidgetItem*)));
+    connect(ui->List_HashDiff, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(Press_HashDiffInfo(QListWidgetItem*)));
 }
 void MainWindow::Press_AdressList()
 {
@@ -150,6 +154,7 @@ void MainWindow::Press_AdressList()
     ui->PB_ManageGroup->hide();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -212,6 +217,7 @@ void MainWindow::Press_Text()
     ui->PB_ManageGroup->hide();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -263,6 +269,7 @@ void MainWindow::Press_AllAdress()
     ui->PB_ManageGroup->hide();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -291,6 +298,7 @@ void MainWindow::Press_GroupAdress()
     ui->PB_ManageGroup->show();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->hide();
@@ -324,6 +332,7 @@ void MainWindow::Press_QueryAdress()
     ui->PB_ManageGroup->hide();
     ui->Input_CreateGroup->hide();
     ui->List_MemberInGroup->hide();
+    ui->PB_ReturnGroup->hide();
 
     //通讯录-查询-控件
     ui->PB_QueryMember->show();
@@ -464,6 +473,7 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
         ui->Text_ArticleShow->append(line);
         line.replace(',', " ");
         line.replace('.', " ");
+        line.replace('"', " ");
         line.replace(QRegExp("[\\s]+"), " ");
         line = line.toLower();
         line = line.trimmed();
@@ -535,20 +545,67 @@ void MainWindow::Input_CreateGroup()
     ui->Text_OverallInfo->clear();
 
     addresslinklist.addGroup(ui->Input_CreateGroup->text());
+    Press_GroupAdress();
 }
 
 void MainWindow::Press_ManageGroup()
 {
+    QString groupName = ui->Text_MemberInfo->toPlainText();
+    groupName = groupName.right(groupName.size() - 5);
+    if (groupName.size() == 0)  return;
+
+    ui->PB_ReturnGroup->show();
+
     ui->List_MemberInGroup->show();
     ui->Input_CreateGroup->hide();
 
     ui->Text_OverallInfo->clear();
     ui->Text_OverallInfo->append("该分组内成员：");
+    ui->List_MemberInGroup->clear();
+    ui->List_AddressBook->clear();
+
+    int index = 0;
+    for (int i=0; i<addresslinklist.getGroupNum(); i++){
+        if (addresslinklist.group[i] == groupName){
+            index = i;
+            break;
+        }
+    }
+
+    Node_L *p = addresslinklist.getHead();
+    p = p->next;
+
+
+    while (p){
+//        qDebug() << p->data.groupIndex << endl;
+        if (p->data.groupIndex == index)    ui->List_MemberInGroup->addItem("姓名：" + p->data.name);
+        else     ui->List_AddressBook->addItem("姓名：" + p->data.name + "\t分组：" + addresslinklist.group[p->data.groupIndex]);
+        p = p->next;
+    }
+}
+
+void MainWindow::Press_ReturnGroup()
+{
+    Press_GroupAdress();
 }
 
 void MainWindow::Press_MemberInGroup(QListWidgetItem* item)
 {
-    qDebug() << item->text() << endl;
+    QString thisName = item->text().right(item->text().size() - 3);
+
+    qDebug() << thisName << endl;
+
+    Node_L *p = addresslinklist.getHead();
+    p = p->next;
+
+    while (p){
+        if (p->data.name == thisName)   break;
+        p = p->next;
+    }
+
+    p->data.groupIndex = 0;
+
+    Press_ManageGroup();
 }
 
 void MainWindow::Press_QueryMember()
@@ -643,11 +700,10 @@ void MainWindow::Press_SortDown()
 
 void MainWindow::Press_AdressBook(QListWidgetItem* item)
 {
-    ui->Text_MemberInfo->clear();
-
     qDebug() << item->text() << endl;
     QStringList strlist=item->text().split("\t");
     if (item->text().contains('@')){    //处理全部界面
+        ui->Text_MemberInfo->clear();
         QString str=strlist[1];
 
         Node_L *p=addresslinklist.getHead();
@@ -662,9 +718,30 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
         ui->Text_MemberInfo->append("分组：" + addresslinklist.group[p->data.groupIndex]);
     }
     else if (strlist.size() > 1){       //处理分组界面-用户部分
+        QString thisName = item->text().split('\t')[0];
+        thisName = thisName.right(thisName.size() - 3);
+        QString groupName = ui->Text_MemberInfo->toPlainText();
+        groupName = groupName.right(groupName.size() - 5);
 
+        int index = 0;
+        for (int i=0; i<addresslinklist.getGroupNum(); i++){
+            if (addresslinklist.group[i] == groupName){
+                index = i;
+                break;
+            }
+        }
+
+        Node_L *p = addresslinklist.getHead()->next;
+        while (p){
+            if (p->data.name == thisName)   break;
+            p = p->next;
+        }
+        p->data.groupIndex = index;
+
+        Press_ManageGroup();
     }
     else {      //处理分组界面-分组部分
+        ui->Text_MemberInfo->clear();
         QString groupname=strlist[0];
         ui->Text_MemberInfo->append("分组名称：" + groupname);
     }
@@ -698,6 +775,7 @@ void MainWindow::Set_LinkList()
 
 void MainWindow::Press_HashLinear()
 {
+    hashdiffType = 1;
     ui->List_HashFun->clear();
 
     int sum[3]={0};
@@ -728,8 +806,10 @@ void MainWindow::Press_HashLinear()
 
 void MainWindow::Press_HashQsr()
 {
+    hashdiffType = 2;
     ui->List_HashFun->clear();
 
+    bool flag=true;
     int sum[3]={0};
     double wordNum=0;
 
@@ -738,7 +818,12 @@ void MainWindow::Press_HashQsr()
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
-                sum[k] += hashMap.insert(words[j], k, 2);
+                int cnt = hashMap.insert(words[j], k, 2);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum[k] += cnt;
                 wordNum++;
             }
         }
@@ -751,13 +836,21 @@ void MainWindow::Press_HashQsr()
     qDebug() << sum[0] << sum[1] << sum[2] << wordNum/3 << endl;
 
     ui->List_HashFunCompare->clear();
-    ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
-    ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
-    ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+    if (flag){
+        ui->List_HashFunCompare->addItem("平方取中法：" + QString::number(sum[0]/wordNum*3));
+        ui->List_HashFunCompare->addItem("除留余数法：" + QString::number(sum[1]/wordNum*3));
+        ui->List_HashFunCompare->addItem("随机数法：" + QString::number(sum[2]/wordNum*3));
+    }
+    else{
+        ui->List_HashFunCompare->addItem("平方取中法：NaN" );
+        ui->List_HashFunCompare->addItem("除留余数法：NaN");
+        ui->List_HashFunCompare->addItem("随机数法：NaN");
+    }
 }
 
 void MainWindow::Press_HashRandom()
 {
+    hashdiffType = 3;
     ui->List_HashFun->clear();
 
     int sum[3]={0};
@@ -788,6 +881,7 @@ void MainWindow::Press_HashRandom()
 
 void MainWindow::Press_HashLink()
 {
+    hashdiffType = 0;
     ui->List_HashFun->clear();
 
     int sum[3]={0};
@@ -820,7 +914,7 @@ void MainWindow::Press_HashNewRule()
 {
     ui->Input_setHashSIZE->clear();
     ui->Input_setHashSIZE->show();
-    ui->Input_setHashSIZE->setPlaceholderText("请在此处输入新SIZE值：(10000以内的素数)");
+    ui->Input_setHashSIZE->setPlaceholderText("输入新SIZE值(10000以内的素数)：");
 
 }
 
@@ -828,7 +922,9 @@ void MainWindow::Input_SetHashSIZE()
 {
     int newSIZE = ui->Input_setHashSIZE->text().toInt();
     ui->Input_setHashSIZE->hide();
-    if (newSIZE < 2 || newSIZE > 9973) return;
+    vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+    int wordsNum = numToWord.size();
+    if (newSIZE < 2 || newSIZE > 9973 || newSIZE < wordsNum) return;
     for (int i=2; i<newSIZE; i++){
         if (newSIZE % i == 0)   return;
     }
@@ -837,8 +933,10 @@ void MainWindow::Input_SetHashSIZE()
 
 void MainWindow::Press_DiffSqr()
 {
+    hashfunType = 0;
     ui->List_HashDiff->clear();
 
+    bool flag=true;
     int sum[4]={0};
     double wordNum=0;
 
@@ -848,7 +946,12 @@ void MainWindow::Press_DiffSqr()
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
-                sum[k] += hashMap.insert(words[j], 0, k);
+                int cnt = hashMap.insert(words[j], 0, k);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum[k] += cnt;
                 wordNum++;
             }
         }
@@ -864,14 +967,17 @@ void MainWindow::Press_DiffSqr()
     ui->List_HashDiffCompare->clear();
     ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
     ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
-    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    if (flag)   ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    else     ui->List_HashDiffCompare->addItem("开放定值法-平方探测：NaN");
     ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
 }
 
 void MainWindow::Press_DiffMod()
 {
+    hashfunType = 1;
     ui->List_HashDiff->clear();
 
+    bool flag=true;
     int sum[4]={0};
     double wordNum=0;
 
@@ -881,7 +987,12 @@ void MainWindow::Press_DiffMod()
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
-                sum[k] += hashMap.insert(words[j], 1, k);
+                int cnt = hashMap.insert(words[j], 1, k);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum[k] += cnt;
                 wordNum++;
             }
         }
@@ -897,14 +1008,17 @@ void MainWindow::Press_DiffMod()
     ui->List_HashDiffCompare->clear();
     ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
     ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
-    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    if (flag)   ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    else     ui->List_HashDiffCompare->addItem("开放定值法-平方探测：NaN");
     ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
 }
 
 void MainWindow::Press_DiffRandom()
 {
+    hashfunType = 2;
     ui->List_HashDiff->clear();
 
+    bool flag=true;
     int sum[4]={0};
     double wordNum=0;
 
@@ -914,7 +1028,12 @@ void MainWindow::Press_DiffRandom()
         for (int i=0; i<article.size(); i++){
             QStringList words=article[i].split(" ");
             for (int j=0; j<words.size(); j++){
-                sum[k] += hashMap.insert(words[j], 2, k);
+                int cnt = hashMap.insert(words[j], 2, k);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum[k] += cnt;
                 wordNum++;
             }
         }
@@ -930,8 +1049,196 @@ void MainWindow::Press_DiffRandom()
     ui->List_HashDiffCompare->clear();
     ui->List_HashDiffCompare->addItem("链地址法：" + QString::number(sum[0]/wordNum*4));
     ui->List_HashDiffCompare->addItem("开放定值法-线性探测：" + QString::number(sum[1]/wordNum*4));
-    ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    if (flag)   ui->List_HashDiffCompare->addItem("开放定值法-平方探测：" + QString::number(sum[2]/wordNum*4));
+    else     ui->List_HashDiffCompare->addItem("开放定值法-平方探测：NaN");
     ui->List_HashDiffCompare->addItem("开放定值法-随机探测：" + QString::number(sum[3]/wordNum*4));
+}
+
+void MainWindow::Press_HashFunInfo(QListWidgetItem* item)
+{
+    QString str = item->text();
+    ui->Text_HashInfo->clear();
+
+    qDebug() << str << hashdiffType << endl;
+
+    if (str == "平方取中法"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        if (hashdiffType == 0)  hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], 0, hashdiffType);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashInfo->append("平方取中法：");
+        ui->Text_HashInfo->append("\n将字符串转换为数字后，取平方再取中间四位数作为哈希函数值。");
+        if (flag)   ui->Text_HashInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashInfo->append("\nASL = NaN");
+        ui->Text_HashInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+    else if (str == "除留余数法"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        if (hashdiffType == 0)  hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], 1, hashdiffType);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashInfo->append("除留余数法：");
+        ui->Text_HashInfo->append("\nH(Key) = MOD SIZE 通过如上式子计算哈希值，注意SIZE需要为合适的素数。");
+        if (flag)   ui->Text_HashInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashInfo->append("\nASL = NaN");
+        ui->Text_HashInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+    else if (str == "随机数法"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        if (hashdiffType == 0)  hashMap.resetHashLink();
+        else    hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], 2, hashdiffType);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashInfo->append("随机数法：");
+        ui->Text_HashInfo->append("\nH(Key) = Random(Key) 通过如上式子计算哈希值。");
+        if (flag)   ui->Text_HashInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashInfo->append("\nASL = NaN");
+        ui->Text_HashInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+}
+
+void MainWindow::Press_HashDiffInfo(QListWidgetItem* item)
+{
+    QString str = item->text();
+    ui->Text_HashDiffInfo->clear();
+
+    if (str == "链地址法"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        hashMap.resetHashLink();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], hashfunType, 0);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashDiffInfo->append("链地址法：");
+        ui->Text_HashDiffInfo->append("\n将所有哈希地址相同的记录都链接在同一链表中。");
+        if (flag)   ui->Text_HashDiffInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashDiffInfo->append("\nASL = NaN");
+        ui->Text_HashDiffInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+    else if (str == "开放定值法-线性探测"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], hashfunType, 1);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashDiffInfo->append("开放定值法-线性探测：");
+        ui->Text_HashDiffInfo->append("\n线性探测再散列。");
+        if (flag)   ui->Text_HashDiffInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashDiffInfo->append("\nASL = NaN");
+        ui->Text_HashDiffInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+    else if (str == "开放定值法-平方探测"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], hashfunType, 2);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashDiffInfo->append("开放定值法-平方探测：");
+        ui->Text_HashDiffInfo->append("\n平方探测再散列。");
+        if (flag)   ui->Text_HashDiffInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashDiffInfo->append("\nASL = NaN");
+        ui->Text_HashDiffInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
+    else if (str == "开放定值法-随机探测"){
+        double sum = 0;
+        int wordsNum = 0;
+        bool flag = true;
+        hashMap.resetHashArray();
+        for (int i=0; i<article.size(); i++){
+            QStringList words=article[i].split(" ");
+            for (int j=0; j<words.size(); j++){
+                int cnt = hashMap.insert(words[j], hashfunType, 3);
+                if (cnt == -1){
+                    flag = false;
+                    break;
+                }
+                sum += cnt;
+                wordsNum++;
+            }
+        }
+        vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
+        ui->Text_HashDiffInfo->append("开放定值法-随机探测：");
+        ui->Text_HashDiffInfo->append("\n通过伪随机数再探测散列。");
+        if (flag)   ui->Text_HashDiffInfo->append("\nASL = " + QString::number(sum) + "/" + QString::number(wordsNum) + " = " + QString::number(sum/wordsNum));
+        else    ui->Text_HashDiffInfo->append("\nASL = NaN");
+        ui->Text_HashDiffInfo->append("装载因子 α = " + QString::number(numToWord.size()) + "/" + QString::number(hashMap.getSIZE()));
+    }
 }
 
 MainWindow::~MainWindow()

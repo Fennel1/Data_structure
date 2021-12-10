@@ -37,7 +37,7 @@ public:
     int insert(QString word, int fun, int diff);
 
     void setSIZE(int newSIZE);
-    void setMULT(int newMULT);
+    int getSIZE();
 
     map<QString, int> stlMap;
     Array myHashArray;

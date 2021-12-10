@@ -92,6 +92,8 @@ int HashMap::insert(QString word, int fun, int diff)
     else if (fun == 1)  index = getKey_Mod(word);   //除留余数法
     else    index = getKey_Random(word);            //随机数法
 
+//    qDebug() << index << endl;
+
     int cnt=0;
 
     if (diff == 0){         //链地址法
@@ -158,10 +160,11 @@ int HashMap::insert(QString word, int fun, int diff)
                 }
                 else{
                     newindex = index - step*step;
-                    if (newindex < 0)   newindex += SIZE;
+                    while (newindex < 0)   newindex += SIZE;
                     k++;
                     step++;
                 }
+                if (step*step > 9973)   return -1;
                 cnt++;
             }
             if (myHashArray[newindex].word == word){
@@ -210,6 +213,9 @@ void HashMap::setSIZE(int newSIZE)
     delete []myHashArray;
 
     resetHashLink();
+    for(int i=0; i<SIZE; i++){
+        delete myHashLink[i];
+    }
     while(!myHashLink.empty())  myHashLink.pop_back();
 
     SIZE = newSIZE;
@@ -229,7 +235,7 @@ void HashMap::setSIZE(int newSIZE)
     }
 }
 
-void HashMap::setMULT(int newMULT)
+int HashMap::getSIZE()
 {
-    MULT = newMULT;
+    return SIZE;
 }

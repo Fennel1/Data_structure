@@ -43,6 +43,7 @@ public slots:   //槽函数
     void Press_ManageGroup();
     void Input_CreateGroup();
     void Press_MemberInGroup(QListWidgetItem* item);
+    void Press_ReturnGroup();
 
     void Press_QueryMember();
     void Input_QueryMember();
@@ -64,6 +65,8 @@ public slots:   //槽函数
     void Press_DiffMod();
     void Press_DiffRandom();
     void Input_SetHashSIZE();
+    void Press_HashFunInfo(QListWidgetItem* item);
+    void Press_HashDiffInfo(QListWidgetItem* item);
 
 public:
 
@@ -91,6 +94,9 @@ private:
 
     int type;
     int basis;
+
+    int hashfunType;
+    int hashdiffType;
 };
 
 #endif // MAINWINDOW_H

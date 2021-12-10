@@ -876,6 +876,27 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="PB_ReturnGroup">
+    <property name="geometry">
+     <rect>
+      <x>1780</x>
+      <y>690</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>返回分组</string>
+    </property>
+   </widget>
+   <zorder>Text_HashDiffInfo</zorder>
+   <zorder>Text_OverallInfo</zorder>
    <zorder>Input_CreateGroup</zorder>
    <zorder>List_MemberInGroup</zorder>
    <zorder>List_WordInfo</zorder>
@@ -892,7 +913,6 @@
    <zorder>List_AddressBook</zorder>
    <zorder>Text_MemberInfo</zorder>
    <zorder>PB_DeleteMember</zorder>
-   <zorder>Text_OverallInfo</zorder>
    <zorder>PB_AddMember</zorder>
    <zorder>PB_ChangeMember</zorder>
    <zorder>PB_ManageGroup</zorder>
@@ -919,8 +939,8 @@
    <zorder>PB_DiffRandom</zorder>
    <zorder>List_HashDiff</zorder>
    <zorder>List_HashDiffCompare</zorder>
-   <zorder>Text_HashDiffInfo</zorder>
    <zorder>Input_setHashSIZE</zorder>
+   <zorder>PB_ReturnGroup</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
