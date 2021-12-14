@@ -6,13 +6,15 @@ OpenAdress::OpenAdress(QWidget *parent) :
     ui(new Ui::OpenAdress)
 {
     ui->setupUi(this);
+    this->setMinimumSize(800, 600);
+    this->setMaximumSize(800, 600);
 }
 
 void OpenAdress::set_List()
 {
     ui->List_AddressList->clear();
 
-    QDir dir("D:\\GitHub\\qtpro\\addressbook");
+    QDir dir("../addressbook/");
     dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
     QFileInfoList list = dir.entryInfoList();
 

@@ -12,7 +12,7 @@ AddressList::AddressList()
 
 void AddressList::init(QString filename)
 {
-    QFile file("D:\\GitHub\\qtpro\\addressbook\\" + filename + ".txt");
+    QFile file("../addressbook/" + filename + ".txt");
     if (file.exists())  qDebug() << "file exists" << endl;
     else    qDebug() << "file not exists" << endl;
 
@@ -281,9 +281,9 @@ void AddressBTree::R_Balance(BSTree &root)
         case 1:
             Node_BST *ld = rc->lchild;
             switch (ld->bf) {
-                case 1: root->bf = 1; rc->bf = 0; break;
+                case 1: root->bf = 0; rc->bf = -1; break;
                 case 0: root->bf = rc->bf = 0; break;
-                case -1: root->bf = 0; rc->bf = -1; break;
+                case -1: root->bf = 1; rc->bf = 0; break;
             }
             ld->bf = 0;
             R_Rotate(root->rchild);

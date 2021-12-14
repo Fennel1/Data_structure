@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     type = basis = 0;
+    this->setMinimumSize(2160, 1350);
+    this->setMaximumSize(2160, 1350);
 
     //设置文本框仅读
     ui->Text_MemberInfo->setReadOnly(true);
@@ -458,7 +460,7 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
     ui->Text_ArticleShow->clear();
     ui->List_WordInfo->clear();
     ui->Text_ArticalInfo->clear();
-    QFile file("D:\\GitHub\\qtpro\\text\\" + item->text() + ".txt");
+    QFile file("../text/" + item->text() + ".txt");
     if (file.exists())  qDebug() << "file exists" << endl;
     else    qDebug() << "file not exists" << endl;
 
@@ -708,8 +710,23 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
     qDebug() << item->text() << endl;
     QStringList strlist=item->text().split("\t");
     if (item->text().contains('@')){    //处理全部界面
+        QString str=item->text();
+            QString x;
+            for(int i=0;i<str.size();i++)
+            {
+                if(str[i]=="\t")
+                {
+                    i++;
+                    for(int j=0;i<str.size();j++,i++)
+                    {
+                        x[j]=str[i];
+                    }
+                }
+            }
+            EMAIL=x;
+
         ui->Text_MemberInfo->clear();
-        QString str=strlist[1];
+        str=strlist[1];
 
         Node_L *p=addresslinklist.getHead();
         p = p->next;
@@ -1275,12 +1292,19 @@ void MainWindow::on_pushButton_clicked()
                 head->data.phone=changeinfopage->Str_phone;
                 head->data.remark=changeinfopage->Str_remark;
                 head->data.address=changeinfopage->Str_address;
-
                 break;
             }
             head=head->next;
 
         }
+        ui->Text_MemberInfo->clear();
+
+        ui->Text_MemberInfo->append("姓名：" + head->data.name);
+        ui->Text_MemberInfo->append("电话号码：" + head->data.phone);
+        ui->Text_MemberInfo->append("电子邮箱：" + head->data.email);
+        ui->Text_MemberInfo->append("地址：" + head->data.address);
+        ui->Text_MemberInfo->append("备注：" + head->data.remark);
+        ui->Text_MemberInfo->append("分组：" + addresslinklist.group[head->data.groupIndex]);
         changeinfopage->hide();
         Set_LinkList();
     }

@@ -15,7 +15,6 @@
 #include "hashmap.h"
 #include "changeinfopage.h"
 
-static QString EMAIL;
 namespace Ui {
 class MainWindow;
 }
@@ -95,6 +94,7 @@ private:
     AddressList addresslinklist;
     //数据二叉树
     AddressBTree addressBTree;
+    QString EMAIL;
 
     QStringList article;
     HashMap hashMap;

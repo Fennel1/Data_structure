@@ -6,13 +6,15 @@ OpenArtical::OpenArtical(QWidget *parent) :
     ui(new Ui::OpenArtical)
 {
     ui->setupUi(this);
+    this->setMinimumSize(800, 600);
+    this->setMaximumSize(800, 600);
 }
 
 void OpenArtical::set_List()
 {
     ui->List_Artical->clear();
 
-    QDir dir("D:\\GitHub\\qtpro\\text");
+    QDir dir("../text/");
     dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
     QFileInfoList list = dir.entryInfoList();
 
