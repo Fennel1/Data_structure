@@ -71,6 +71,7 @@ public:
     QTextEdit *Text_HashDiffInfo;
     QLineEdit *Input_setHashSIZE;
     QPushButton *PB_ReturnGroup;
+    QPushButton *PB_Save;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -291,6 +292,10 @@ public:
         PB_ReturnGroup->setObjectName(QString::fromUtf8("PB_ReturnGroup"));
         PB_ReturnGroup->setGeometry(QRect(1780, 690, 181, 71));
         PB_ReturnGroup->setFont(font4);
+        PB_Save = new QPushButton(centralWidget);
+        PB_Save->setObjectName(QString::fromUtf8("PB_Save"));
+        PB_Save->setGeometry(QRect(1970, 610, 181, 71));
+        PB_Save->setFont(font4);
         MainWindow->setCentralWidget(centralWidget);
         Text_HashDiffInfo->raise();
         Text_OverallInfo->raise();
@@ -338,6 +343,7 @@ public:
         List_HashDiffCompare->raise();
         Input_setHashSIZE->raise();
         PB_ReturnGroup->raise();
+        PB_Save->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -383,6 +389,7 @@ public:
         PB_DiffMod->setText(QCoreApplication::translate("MainWindow", "\345\216\273\347\225\231\344\275\231\346\225\260\346\263\225", nullptr));
         PB_DiffRandom->setText(QCoreApplication::translate("MainWindow", "\351\232\217\346\234\272\346\225\260\346\263\225", nullptr));
         PB_ReturnGroup->setText(QCoreApplication::translate("MainWindow", "\350\277\224\345\233\236\345\210\206\347\273\204", nullptr));
+        PB_Save->setText(QCoreApplication::translate("MainWindow", "\344\277\235\345\255\230", nullptr));
     } // retranslateUi
 
 };

@@ -53,14 +53,16 @@ public:
     Node_L * getHead();
     int getLen();
     int getGroupNum();
+    QString getBookName();
+    bool Save();
 
     bool addGroup(QString groupName);
 
     QStringList group;
-
+    int len;
 private:
     List head;
-    int len;
+
     int groupNum;
     QString BookName;
 };

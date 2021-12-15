@@ -40,6 +40,7 @@ public slots:   //槽函数
     void Press_SortPhone();
     void Press_SortUp();
     void Press_SortDown();
+    void Press_Save();
 
     void Press_CreateGroup();
     void Press_ManageGroup();

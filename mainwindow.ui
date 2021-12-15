@@ -895,6 +895,25 @@
      <string>返回分组</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="PB_Save">
+    <property name="geometry">
+     <rect>
+      <x>1970</x>
+      <y>610</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>保存</string>
+    </property>
+   </widget>
    <zorder>Text_HashDiffInfo</zorder>
    <zorder>Text_OverallInfo</zorder>
    <zorder>Input_CreateGroup</zorder>
@@ -941,6 +960,7 @@
    <zorder>List_HashDiffCompare</zorder>
    <zorder>Input_setHashSIZE</zorder>
    <zorder>PB_ReturnGroup</zorder>
+   <zorder>PB_Save</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

@@ -7,6 +7,7 @@ AddressList::AddressList()
 {
     head = new Node_L;
     head->next = nullptr;
+    len = 0;
     groupNum = 0;
 }
 
@@ -21,6 +22,8 @@ void AddressList::init(QString filename)
         qDebug() << "file open fail" << endl;
         return;
     }
+
+    BookName = filename;
 
     QTextStream txt(&file);
     QString line=txt.readLine();
@@ -73,6 +76,11 @@ int AddressList::getLen()
 int AddressList::getGroupNum()
 {
     return groupNum;
+}
+
+QString AddressList::getBookName()
+{
+    return BookName;
 }
 
 bool AddressList::addGroup(QString groupName)
@@ -211,6 +219,7 @@ void AddressList::Add()
     nptr->data.address="unknown";
     nptr->data.groupIndex=0;
     nptr->next=nullptr;
+    len++;
     if(head == nullptr)
     {
         head = nptr;
@@ -222,6 +231,35 @@ void AddressList::Add()
             pNode = pNode->next;
         pNode->next = nptr;
     }
+}
+
+bool AddressList::Save()
+{
+    QFile file("../addressbook/" + BookName + ".txt");
+    if (file.exists())  qDebug() << "file exists" << endl;
+    else    qDebug() << "file not exists" << endl;
+
+    if (file.open(QIODevice::WriteOnly)) qDebug() << "file open" << endl;
+    else{
+        qDebug() << "file open fail" << endl;
+        return false;
+    }
+
+    QTextStream txt(&file);
+    txt << BookName << ',' << len << ',' << groupNum << endl;
+    txt << group[0];
+    for (int i=1; i<groupNum; i++){
+        txt << ',' << group[i];
+    }
+    txt << endl;
+    Node_L *p=head->next;
+    while(p){
+        txt << p->data.phone << ',' << p->data.name << ',' << p->data.email << ',' << p->data.address << ',' << p->data.remark << ',' << p->data.groupIndex << endl;
+        p = p->next;
+    }
+
+    file.close();
+    return true;
 }
 
 /*
@@ -319,8 +357,8 @@ bool AddressBTree::insert(BSTree &root, Data data, bool &taller, int type)
                             taller = true;
                         break;
                         case -1:
-                            root->bf = -1;
-                            taller = true;
+                            root->bf = 0;
+                            taller = false;
                         break;
                     }
                 }
@@ -372,8 +410,8 @@ bool AddressBTree::insert(BSTree &root, Data data, bool &taller, int type)
                             taller = true;
                         break;
                         case -1:
-                            root->bf = -1;
-                            taller = true;
+                            root->bf = 0;
+                            taller = false;
                         break;
                     }
                 }

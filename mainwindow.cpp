@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PB_SortPhone->hide();
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
+    ui->PB_Save->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -100,6 +101,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_SortPhone, SIGNAL(clicked()), this, SLOT(Press_SortPhone()));
     connect(ui->PB_SortUp, SIGNAL(clicked()), this, SLOT(Press_SortUp()));
     connect(ui->PB_SortDown, SIGNAL(clicked()), this, SLOT(Press_SortDown()));
+    connect(ui->PB_Save, SIGNAL(clicked()), this, SLOT(Press_Save()));
 
     connect(ui->PB_CreateGroup, SIGNAL(clicked()), this, SLOT(Press_CreateGroup()));
     connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
@@ -153,6 +155,7 @@ void MainWindow::Press_AdressList()
     ui->PB_SortPhone->show();
     ui->PB_SortUp->show();
     ui->PB_SortDown->show();
+    ui->PB_Save->show();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -268,6 +271,7 @@ void MainWindow::Press_AllAdress()
     ui->PB_SortPhone->show();
     ui->PB_SortUp->show();
     ui->PB_SortDown->show();
+    ui->PB_Save->show();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -297,6 +301,7 @@ void MainWindow::Press_GroupAdress()
     ui->PB_SortPhone->hide();
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
+    ui->PB_Save->show();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->show();
@@ -331,6 +336,7 @@ void MainWindow::Press_QueryAdress()
     ui->PB_SortPhone->hide();
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
+    ui->PB_Save->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -351,6 +357,7 @@ void MainWindow::Press_QueryAdress()
     p = p->next;
 
     while (p){
+        qDebug() << p->data.name << endl;
         bool nametaller=false, phonetaller=false;
         addressBTree.insert(addressBTree.getNameRoot(), p->data, nametaller, 1);
         addressBTree.insert(addressBTree.getEmailRoot(), p->data, phonetaller, 2);
@@ -479,6 +486,8 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
         line.replace(',', " ");
         line.replace('.', " ");
         line.replace('"', " ");
+        line.replace('!', " ");
+        line.replace('?', " ");
         line.replace(QRegExp("[\\s]+"), " ");
         line = line.toLower();
         line = line.trimmed();
@@ -492,7 +501,7 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
     for (int i=0; i<article.size(); i++){
         QStringList words=article[i].split(" ");
         for (int j=0; j<words.size(); j++){
-            hashMap.stlMap[words[j]]++;
+            hashMap.stlMap[words[j].trimmed()]++;
         }
     }
 
@@ -500,7 +509,9 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
     vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
     sort(numToWord.begin(), numToWord.end(), cmp);
     for (int i=0; i<numToWord.size(); i++){
-        ui->List_WordInfo->addItem(numToWord[i].first + '\t' + QString::number(numToWord[i].second));
+        QString str=numToWord[i].first;
+        while(str.size()<30)    str += ' ';
+        ui->List_WordInfo->addItem(str + "\t\t\t" + QString::number(numToWord[i].second));
         sum += numToWord[i].second;
     }
     ui->Text_ArticalInfo->append("文章名称：" + item->text());
@@ -528,12 +539,38 @@ void MainWindow::Press_AddMember()
 
 void MainWindow::Press_DeleteMember()
 {
+    qDebug() << EMAIL << endl;
+    Node_L *head;
+    Node_L *pre;
+    Node_L *p2;
+    head=addresslinklist.getHead();
+    pre=head;
+    p2=head->next;
+    while(p2!=nullptr)
+    {
+        if(EMAIL==p2->data.email)
+        {
+            pre->next = p2->next;
+            delete p2;
+            addresslinklist.len--;
+            break;
+        }
+        pre=p2;
+        p2=p2->next;
+    }
 
+    Set_LinkList();
+    ui->Text_MemberInfo->clear();
 }
 
 void MainWindow::Press_ChangeMember()
 {
-    changeinfopage->show();
+    if (ui->Text_MemberInfo->toPlainText() != "")   changeinfopage->show();
+}
+
+void MainWindow::Press_Save()
+{
+    addresslinklist.Save();
 }
 
 void MainWindow::Press_CreateGroup()
@@ -584,7 +621,11 @@ void MainWindow::Press_ManageGroup()
     while (p){
 //        qDebug() << p->data.groupIndex << endl;
         if (p->data.groupIndex == index)    ui->List_MemberInGroup->addItem("姓名：" + p->data.name);
-        else     ui->List_AddressBook->addItem("姓名：" + p->data.name + "\t分组：" + addresslinklist.group[p->data.groupIndex]);
+        else{
+            QString str=p->data.name;
+            while(str.size()<30)    str += ' ';
+            ui->List_AddressBook->addItem("姓名：" + str + "\t分组：" + addresslinklist.group[p->data.groupIndex]);
+        }
         p = p->next;
     }
 }
@@ -726,7 +767,8 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
             EMAIL=x;
 
         ui->Text_MemberInfo->clear();
-        str=strlist[1];
+        str = strlist[1];
+        str = str.right(str.size()-3);
 
         Node_L *p=addresslinklist.getHead();
         p = p->next;
@@ -741,7 +783,9 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
     }
     else if (strlist.size() > 1){       //处理分组界面-用户部分
         QString thisName = item->text().split('\t')[0];
+        thisName = thisName.trimmed();
         thisName = thisName.right(thisName.size() - 3);
+        qDebug() << thisName << endl;
         QString groupName = ui->Text_MemberInfo->toPlainText();
         groupName = groupName.right(groupName.size() - 5);
 
@@ -789,8 +833,9 @@ void MainWindow::Set_LinkList()
 
     while (p)
     {
-        QString thistext=p->data.name + "\t" + p->data.email;
-        ui->List_AddressBook->addItem(thistext);
+        QString thistext=p->data.name;
+        while (thistext.size() < 30)    thistext += ' ';
+        ui->List_AddressBook->addItem("姓名：" + thistext + "\t邮箱：" + p->data.email);
         p = p->next;
     }
 }
@@ -1265,6 +1310,12 @@ void MainWindow::Press_HashDiffInfo(QListWidgetItem* item)
 
 void MainWindow::on_pushButton_clicked()
 {
+    changeinfopage->ui->lineEdit_name->clear();
+    changeinfopage->ui->lineEdit_email->clear();
+    changeinfopage->ui->lineEdit_phone->clear();
+    changeinfopage->ui->lineEdit_remark->clear();
+    changeinfopage->ui->lineEdit_address->clear();
+
     QString str = changeinfopage->ui->lineEdit_name->text();
     changeinfopage->Str_name=str;
     str = changeinfopage->ui->lineEdit_phone->text();
@@ -1298,7 +1349,6 @@ void MainWindow::on_pushButton_clicked()
 
         }
         ui->Text_MemberInfo->clear();
-
         ui->Text_MemberInfo->append("姓名：" + head->data.name);
         ui->Text_MemberInfo->append("电话号码：" + head->data.phone);
         ui->Text_MemberInfo->append("电子邮箱：" + head->data.email);
