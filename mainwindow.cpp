@@ -3,7 +3,9 @@
 #include "ui_openadress.h"
 #include "ui_openartical.h"
 #include "ui_changeinfopage.h"
+#include<iostream>
 
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow), openad(new OpenAdress), openartical(new OpenArtical), changeinfopage(new ChangeInfoPage)
@@ -219,6 +221,7 @@ void MainWindow::Press_Text()
     ui->PB_SortPhone->hide();
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
+    ui->PB_Save->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -514,6 +517,7 @@ void MainWindow::Press_ArticalFileName(QListWidgetItem* item)
         ui->List_WordInfo->addItem(str + "\t\t\t" + QString::number(numToWord[i].second));
         sum += numToWord[i].second;
     }
+
     ui->Text_ArticalInfo->append("文章名称：" + item->text());
     ui->Text_ArticalInfo->append("文章段落数量：" + QString::number(article.size()) + "段");
     ui->Text_ArticalInfo->append("文章单词数量：" + QString::number(sum) + "个");
@@ -757,14 +761,25 @@ void MainWindow::Press_AdressBook(QListWidgetItem* item)
             {
                 if(str[i]=="\t")
                 {
-                    i++;
-                    for(int j=0;i<str.size();j++,i++)
+
+                    while(1)
                     {
-                        x[j]=str[i];
+                        i++;
+                        if(str[i]=="：")
+                        {
+                            i++;
+                            for(int j=0;i<str.size();j++,i++)
+                            {
+                                x[j]=str[i];
+                            }
+                            break;
+                        }
                     }
                 }
             }
             EMAIL=x;
+            qDebug()<<x<<endl;
+            qDebug()<<str<<endl;
 
         ui->Text_MemberInfo->clear();
         str = strlist[1];
@@ -1310,11 +1325,7 @@ void MainWindow::Press_HashDiffInfo(QListWidgetItem* item)
 
 void MainWindow::on_pushButton_clicked()
 {
-    changeinfopage->ui->lineEdit_name->clear();
-    changeinfopage->ui->lineEdit_email->clear();
-    changeinfopage->ui->lineEdit_phone->clear();
-    changeinfopage->ui->lineEdit_remark->clear();
-    changeinfopage->ui->lineEdit_address->clear();
+
 
     QString str = changeinfopage->ui->lineEdit_name->text();
     changeinfopage->Str_name=str;
@@ -1356,23 +1367,30 @@ void MainWindow::on_pushButton_clicked()
         ui->Text_MemberInfo->append("备注：" + head->data.remark);
         ui->Text_MemberInfo->append("分组：" + addresslinklist.group[head->data.groupIndex]);
         changeinfopage->hide();
+        changeinfopage->ui->lineEdit_name->clear();
+        changeinfopage->ui->lineEdit_email->clear();
+        changeinfopage->ui->lineEdit_phone->clear();
+        changeinfopage->ui->lineEdit_remark->clear();
+        changeinfopage->ui->lineEdit_address->clear();
         Set_LinkList();
     }
     else
     {
-         QMessageBox::critical(0 , "critical message" , "your email has been used!", QMessageBox::Ok | QMessageBox::Default , QMessageBox::Cancel | QMessageBox::Escape , 	0 );
+         QMessageBox::critical(0 , "critical message" , "Your email does not meet the requirements!", QMessageBox::Ok | QMessageBox::Default , QMessageBox::Cancel | QMessageBox::Escape , 	0 );
 
     }
 }
 
 bool MainWindow::PassEmail(QString email)
 {
+    QRegExp rx("([0-9A-Za-z\\-_\\.]+)@(([a-zA-Z0-9\\-])+\\.+[a-z]{2,3}(\\.[a-z]{2})?)");
     Node_L *head;
     head=addresslinklist.getHead();
     head = head->next;
     while(head!=nullptr)
     {
-        if(email==head->data.email)
+        if(rx.exactMatch(email)==false||email==head->data.email)
+        //        if(email==head->data.email||email.contains("@")==false)
         {
             return  false;
         }

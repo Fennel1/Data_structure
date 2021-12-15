@@ -8,6 +8,8 @@
 #include <QtDebug>
 #include <QDir>
 #include <QMessageBox>
+#include<QRegExp>
+
 
 #include "address.h"
 #include "openadress.h"
