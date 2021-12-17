@@ -914,6 +914,35 @@
      <string>保存</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="PB_CreateAdress">
+    <property name="geometry">
+     <rect>
+      <x>1590</x>
+      <y>690</y>
+      <width>181</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>创建</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Input_CreateAdress">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>690</y>
+      <width>491</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>Text_HashDiffInfo</zorder>
    <zorder>Text_OverallInfo</zorder>
    <zorder>Input_CreateGroup</zorder>
@@ -961,6 +990,8 @@
    <zorder>Input_setHashSIZE</zorder>
    <zorder>PB_ReturnGroup</zorder>
    <zorder>PB_Save</zorder>
+   <zorder>PB_CreateAdress</zorder>
+   <zorder>Input_CreateAdress</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

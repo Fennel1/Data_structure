@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
     ui->PB_Save->hide();
+    ui->PB_CreateAdress->hide();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -104,6 +106,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->PB_SortUp, SIGNAL(clicked()), this, SLOT(Press_SortUp()));
     connect(ui->PB_SortDown, SIGNAL(clicked()), this, SLOT(Press_SortDown()));
     connect(ui->PB_Save, SIGNAL(clicked()), this, SLOT(Press_Save()));
+    connect(ui->PB_CreateAdress, SIGNAL(clicked()), this, SLOT(Press_CreateAdress()));
+    connect(ui->Input_CreateAdress, SIGNAL(returnPressed()), this, SLOT(Input_CreateAdress()));
 
     connect(ui->PB_CreateGroup, SIGNAL(clicked()), this, SLOT(Press_CreateGroup()));
     connect(ui->PB_ManageGroup, SIGNAL(clicked()), this, SLOT(Press_ManageGroup()));
@@ -158,6 +162,8 @@ void MainWindow::Press_AdressList()
     ui->PB_SortUp->show();
     ui->PB_SortDown->show();
     ui->PB_Save->show();
+    ui->PB_CreateAdress->show();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -222,6 +228,8 @@ void MainWindow::Press_Text()
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
     ui->PB_Save->hide();
+    ui->PB_CreateAdress->hide();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -275,6 +283,8 @@ void MainWindow::Press_AllAdress()
     ui->PB_SortUp->show();
     ui->PB_SortDown->show();
     ui->PB_Save->show();
+    ui->PB_CreateAdress->show();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -305,6 +315,8 @@ void MainWindow::Press_GroupAdress()
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
     ui->PB_Save->show();
+    ui->PB_CreateAdress->hide();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->show();
@@ -340,6 +352,8 @@ void MainWindow::Press_QueryAdress()
     ui->PB_SortUp->hide();
     ui->PB_SortDown->hide();
     ui->PB_Save->hide();
+    ui->PB_CreateAdress->hide();
+    ui->Input_CreateAdress->hide();
 
     //通讯录-分组-控件
     ui->PB_CreateGroup->hide();
@@ -458,6 +472,33 @@ void MainWindow::Press_OpenArtical()
 {
     openartical->show();
     openartical->set_List();
+}
+
+void MainWindow::Press_CreateAdress()
+{
+    ui->Input_CreateAdress->clear();
+    ui->Input_CreateAdress->show();
+}
+
+void MainWindow::Input_CreateAdress()
+{
+    QString str = ui->Input_CreateAdress->text();
+    if (str.size() == 0)    return;
+
+    QFile file("../addressbook/" + str + ".txt");
+    if (file.exists()){
+
+        return;
+    }
+    file.open(QIODevice::WriteOnly);
+    QTextStream txt(&file);
+    txt << str  << ",0,1" << endl;
+    txt << "fault" << endl;
+    file.close();
+
+    addresslinklist.init(str);
+    ui->Input_CreateAdress->hide();
+    QMessageBox::information(nullptr,"成功","创建通讯录成功！",QMessageBox::Ok);
 }
 
 bool cmp(pair<QString, int> a, pair<QString, int> b)
@@ -1006,9 +1047,15 @@ void MainWindow::Input_SetHashSIZE()
     ui->Input_setHashSIZE->hide();
     vector<pair<QString, int>> numToWord(hashMap.stlMap.begin(), hashMap.stlMap.end());
     int wordsNum = numToWord.size();
-    if (newSIZE < 2 || newSIZE > 9973 || newSIZE < wordsNum) return;
+    if (newSIZE < 2 || newSIZE > 9973 || newSIZE < wordsNum){
+        QMessageBox::information(nullptr,"失败","修改SIZE值失败！",QMessageBox::Ok);
+        return;
+    }
     for (int i=2; i<newSIZE; i++){
-        if (newSIZE % i == 0)   return;
+        if (newSIZE % i == 0){
+            QMessageBox::information(nullptr,"失败","修改SIZE值失败！",QMessageBox::Ok);
+            return;
+        }
     }
     hashMap.setSIZE(newSIZE);
 }

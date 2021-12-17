@@ -8,7 +8,7 @@
 #include <QtDebug>
 #include <QDir>
 #include <QMessageBox>
-#include<QRegExp>
+#include <QRegExp>
 
 
 #include "address.h"
@@ -43,6 +43,8 @@ public slots:   //槽函数
     void Press_SortUp();
     void Press_SortDown();
     void Press_Save();
+    void Press_CreateAdress();
+    void Input_CreateAdress();
 
     void Press_CreateGroup();
     void Press_ManageGroup();
