@@ -41,6 +41,9 @@ public:
     Node_L* merge_sort(Node_L *head);
     Node_L* sortList(Node_L* head);
 
+    void quick_sort();
+    void qsort(int *list, int low, int high);
+
     Node_L* merge_name(Node_L *left, Node_L *right);
     Node_L* merge_sort_name(Node_L *head);
     Node_L* sortList_name(Node_L* head);

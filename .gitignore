@@ -1,2 +1,4 @@
 build-qtpro-Desktop_Qt_5_13_0_MinGW_64_bit-Debug
+build-qtpro-Desktop_Qt_5_13_0_MinGW_64_bit-Release
+release
 qtpro.pro.user

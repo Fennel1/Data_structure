@@ -206,7 +206,43 @@ Node_L* AddressList::listReverse(Node_L* head) {
            curr = next;
        }
        return prev;
-   }
+}
+
+void AddressList::quick_sort()
+{
+    int list[len], i=0;
+    Node_L *p = head->next;
+    while (p){
+        list[i++] = p->data.phone.toInt();
+        p = p->next;
+    }
+
+    qsort(list, 0, len-1);
+    p = head->next;
+    while (p){
+        p->data.phone = QString::number(list[i++]);
+        p = p->next;
+    }
+}
+
+void AddressList::qsort(int *list, int low, int high)
+{
+    int i=low, j=high;
+    if (low > high)     return;
+
+    int temp = list[low];
+    while (low < high){
+        while (list[high] >= list[0] && low < high) high--;
+        list[low] = list[high];
+
+        while(list[low] <= list[0] && low < high)   low++;
+        list[high] = list[low];
+    }
+
+    list[low] = temp;
+    qsort(list, i, low-1);
+    qsort(list, low+1, j);
+}
 
 void AddressList::Add()
 {

@@ -2,7 +2,7 @@
 
 HashMap::HashMap()
 {
-    SIZE = 1061;
+    SIZE = 9973;
     MULT = 26;
 
     for (int i=0; i<SIZE; i++){
